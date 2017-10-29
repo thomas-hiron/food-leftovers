@@ -3,6 +3,7 @@
           package="com.thomas.foodleftovers">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera2" />
 
     <application
         android:allowBackup="true"
