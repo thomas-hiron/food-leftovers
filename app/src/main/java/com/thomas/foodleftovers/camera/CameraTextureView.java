@@ -3,12 +3,14 @@ package com.thomas.foodleftovers.camera;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureRequest;
+import android.media.ImageReader;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
@@ -18,14 +20,15 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.TextureView;
 import com.thomas.foodleftovers.MainActivity;
-
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CameraTextureView extends TextureView implements TextureView.SurfaceTextureListener
 {
     private CameraDevice mCameraDevice;
     private CaptureRequest.Builder mCaptureRequest;
     private CameraCaptureSession mPreviewSession;
+    private ImageReader mImageReader;
 
     public CameraTextureView(Context context)
     {
@@ -102,6 +105,16 @@ public class CameraTextureView extends TextureView implements TextureView.Surfac
                 {
                     /* Ouverture ok, démarrage de la caméra */
                     mCameraDevice = camera;
+
+                    /* Ajout de l'image reader */
+                    mImageReader = ImageReader.newInstance(
+                            getMeasuredWidth(),
+                            getMeasuredHeight(),
+                            ImageFormat.YUV_420_888,
+                            1
+                    );
+                    mImageReader.setOnImageAvailableListener(new ImageAvailableListener(), null);
+
                     startCamera();
                 }
 
@@ -135,7 +148,9 @@ public class CameraTextureView extends TextureView implements TextureView.Surfac
         if (texture == null)
             return;
 
+        /* La surface pour la texture et l'autre pour l'ImageReader */
         Surface surface = new Surface(texture);
+        Surface readerSurface = mImageReader.getSurface();
         try
         {
             mCaptureRequest = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
@@ -145,10 +160,17 @@ public class CameraTextureView extends TextureView implements TextureView.Surfac
             Log.e(MainActivity.APP_TAG, "Erreur lors de la création de la requête de la caméra");
         }
 
+        /* Ajout des surfaces cibles */
         mCaptureRequest.addTarget(surface);
+        mCaptureRequest.addTarget(readerSurface);
         try
         {
-            mCameraDevice.createCaptureSession(Collections.singletonList(surface), new CameraCaptureSession.StateCallback()
+            /* Création de la liste des surfaces */
+            List<Surface> surfaces = new ArrayList<>();
+            surfaces.add(surface);
+            surfaces.add(readerSurface);
+
+            mCameraDevice.createCaptureSession(surfaces, new CameraCaptureSession.StateCallback()
             {
                 @Override
                 public void onConfigured(@NonNull CameraCaptureSession session)
@@ -187,7 +209,7 @@ public class CameraTextureView extends TextureView implements TextureView.Surfac
         }
         catch (Exception e)
         {
-            Log.e(MainActivity.APP_TAG, "Erreur lors de la mise à jour du flux");
+            Log.e(MainActivity.APP_TAG, "Erreur lors de la mise à jour du flux: " + e.getMessage());
         }
     }
 }
