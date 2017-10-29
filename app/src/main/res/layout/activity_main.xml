@@ -8,11 +8,12 @@
     tools:context="com.thomas.foodleftovers.MainActivity">
 
     <com.thomas.foodleftovers.camera.CameraLayout
-        android:id="@+id/camera_view"
+        android:id="@+id/camera_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
 
         <com.thomas.foodleftovers.camera.CameraTextureView
+            android:id="@+id/camera_texture_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

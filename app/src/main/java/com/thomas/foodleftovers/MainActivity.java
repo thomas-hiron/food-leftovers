@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.thomas.foodleftovers.camera.CameraTextureView;
+
 public class MainActivity extends AppCompatActivity
 {
     private static final int CAMERA = 1;
@@ -40,8 +42,8 @@ public class MainActivity extends AppCompatActivity
                 else
                 {
                     Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
-//                    CameraLayout cameraLayout = (CameraLayout) findViewById(R.id.camera_view);
-//                    cameraLayout.openCamera();
+                    CameraTextureView tv = (CameraTextureView) findViewById(R.id.camera_texture_view);
+                    tv.openCamera();
                 }
 
                 break;
