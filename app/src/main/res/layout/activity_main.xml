@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    android:id="@+id/main_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.thomas.foodleftovers.MainActivity">
@@ -12,24 +12,37 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.thomas.foodleftovers.camera.CameraLayout
-            android:id="@+id/camera_layout"
+        <com.journeyapps.barcodescanner.DecoratedBarcodeView
+            android:id="@+id/barcode"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.8">
-
-            <com.journeyapps.barcodescanner.DecoratedBarcodeView
-                android:id="@+id/barcode"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </com.thomas.foodleftovers.camera.CameraLayout>
+            android:layout_weight="0.8"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.2"
             tools:ignore="UselessLeaf">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:hint="@string/enter_ingredient"/>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1"
+                    android:text="@string/validate_ingredient"/>
+
+            </LinearLayout>
 
         </RelativeLayout>
 

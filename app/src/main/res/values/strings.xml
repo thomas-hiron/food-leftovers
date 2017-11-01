@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FoodLeftovers</string>
+    <string name="enter_ingredient">Saisissez un ingrédient</string>
+    <string name="validate_ingredient"><![CDATA[>]]></string>
 </resources>
