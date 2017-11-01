@@ -45,7 +45,7 @@ public class IngredientsListView extends ListView
      */
     public void addIngredient(String ingredient)
     {
-        if (!ingredient.trim().equals(""))
+        if (!ingredient.trim().equals("") && mAdapter.getPosition(ingredient) == -1)
         {
             mAdapter.insert(ingredient, 0);
             mAdapter.notifyDataSetChanged();

@@ -15,6 +15,7 @@ import com.google.zxing.ResultPoint;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
+import com.thomas.foodleftovers.ui.IngredientsListView;
 
 import java.util.List;
 
@@ -30,7 +31,9 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void barcodeResult(BarcodeResult result)
         {
-            Log.i(APP_TAG, "Code scanné :" + result.getText());
+            /* Ajout dans l'adapter */
+            IngredientsListView list = findViewById(R.id.ingredients_list);
+            list.addIngredient(result.getText());
         }
 
         @Override
