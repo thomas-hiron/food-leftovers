@@ -18,11 +18,10 @@
             android:layout_height="0dp"
             android:layout_weight="0.8">
 
-            <com.thomas.foodleftovers.camera.CameraTextureView
-                android:id="@+id/camera_texture_view"
+            <com.journeyapps.barcodescanner.DecoratedBarcodeView
+                android:id="@+id/barcode"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"/>
+                android:layout_height="match_parent"/>
 
         </com.thomas.foodleftovers.camera.CameraLayout>
 
