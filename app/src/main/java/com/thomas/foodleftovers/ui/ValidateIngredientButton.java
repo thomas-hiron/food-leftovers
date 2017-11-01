@@ -46,5 +46,11 @@ public class ValidateIngredientButton extends AppCompatButton implements View.On
 
         /* Suppression du input */
         input.setText(null);
+
+        /* Ajout dans l'adapter */
+        View root = getRootView();
+        IngredientsListView listView = root.findViewById(R.id.ingredients_list);
+
+        listView.addIngredient(ingredient);
     }
 }

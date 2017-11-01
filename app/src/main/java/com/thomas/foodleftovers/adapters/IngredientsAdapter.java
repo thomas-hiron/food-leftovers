@@ -19,23 +19,11 @@ import java.util.Arrays;
 public class IngredientsAdapter extends ArrayAdapter<String>
 {
     private LayoutInflater mInflater;
-    private ArrayList<String> mList;
 
     public IngredientsAdapter(Context context)
     {
         super(context, R.layout.ingredients_list);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        String[] values = new String[]{"Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "UbuntuUbuntuUbuntuUbuntuUbuntuUbuntuUbuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-                "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                "Android", "iPhone", "WindowsMobile"};
-
-        mList = new ArrayList<>();
-        mList.addAll(Arrays.asList(values));
-
-        addAll(mList);
     }
 
     @NonNull

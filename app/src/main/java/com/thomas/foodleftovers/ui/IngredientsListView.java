@@ -11,6 +11,8 @@ import com.thomas.foodleftovers.adapters.IngredientsAdapter;
  */
 public class IngredientsListView extends ListView
 {
+    private IngredientsAdapter mAdapter;
+
     public IngredientsListView(Context context)
     {
         super(context);
@@ -31,7 +33,18 @@ public class IngredientsListView extends ListView
     {
         super.onAttachedToWindow();
 
-        IngredientsAdapter adapter = new IngredientsAdapter(getContext());
-        setAdapter(adapter);
+        mAdapter = new IngredientsAdapter(getContext());
+        setAdapter(mAdapter);
+    }
+
+    /**
+     * Ajoute un ingrédient dans la liste en premier
+     *
+     * @param ingredient Le nom de l'ingrédient
+     */
+    public void addIngredient(String ingredient)
+    {
+        mAdapter.insert(ingredient, 0);
+        mAdapter.notifyDataSetChanged();
     }
 }
