@@ -9,14 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.thomas.foodleftovers.R;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.thomas.foodleftovers.ui.IngredientsListView;
 
 /**
  * L'adapter de la liste des ingrédients
  */
-public class IngredientsAdapter extends ArrayAdapter<String>
+public class IngredientsAdapter extends ArrayAdapter<String> implements View.OnClickListener
 {
     private LayoutInflater mInflater;
 
@@ -33,16 +31,35 @@ public class IngredientsAdapter extends ArrayAdapter<String>
         View view;
 
         /* Création de la vue */
-        if(convertView == null)
+        if (convertView == null)
             view = mInflater.inflate(R.layout.ingredients_list, parent, false);
         /* On garde la vue transmise */
         else
             view = convertView;
 
-        /* Ajout du nom de l'album */
+        /* Ajout du nom de l'ingrédient */
         ((TextView) view.findViewById(R.id.ingredient_text)).setText(getItem(position));
+
+        /* Ajout du listener */
+        view.findViewById(R.id.delete_ingredient).setOnClickListener(this);
 
         /* Retour de la vue */
         return view;
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        if (view.getId() == R.id.delete_ingredient)
+        {
+            /* Récupération de la position */
+            View parentRow = (View) view.getParent();
+            IngredientsListView listView = (IngredientsListView) parentRow.getParent();
+            final int position = listView.getPositionForView(parentRow);
+
+            /* Suppression */
+            remove(getItem(position));
+            notifyDataSetChanged();
+        }
     }
 }

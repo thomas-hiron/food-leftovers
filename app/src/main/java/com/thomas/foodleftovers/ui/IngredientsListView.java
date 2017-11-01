@@ -33,6 +33,7 @@ public class IngredientsListView extends ListView
     {
         super.onAttachedToWindow();
 
+        /* Ajout de l'adapter */
         mAdapter = new IngredientsAdapter(getContext());
         setAdapter(mAdapter);
     }

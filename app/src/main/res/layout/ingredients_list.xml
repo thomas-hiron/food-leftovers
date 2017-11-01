@@ -8,20 +8,22 @@
               android:id="@+id/ingredient_text"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
-              android:layout_weight="0.9"
-              android:textAppearance="?android:attr/textAppearanceListItemSmall"
               android:layout_marginStart="5dp"
+              android:layout_weight="0.9"
+              android:clickable="true"
+              android:focusable="true"
               android:gravity="center_vertical"
-              android:minHeight="?android:attr/listPreferredItemHeightSmall" />
+              android:minHeight="?android:attr/listPreferredItemHeightSmall"
+              android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
 
     <Button
         android:id="@+id/delete_ingredient"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.1"
         android:layout_marginEnd="5dp"
+        android:layout_weight="0.1"
         android:background="@null"
-        android:textColor="#FF0000"
-        android:text="@string/delete_cross" />
+        android:text="@string/delete_cross"
+        android:textColor="#FF0000"/>
 
 </LinearLayout>
