@@ -1,6 +1,7 @@
 package com.thomas.foodleftovers.ui;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
@@ -10,7 +11,7 @@ import com.thomas.foodleftovers.R;
 /**
  * Réagit au clic sur le bouton d'ajout d'ingrédient
  */
-public class ValidateIngredientButton extends android.support.v7.widget.AppCompatButton implements View.OnClickListener
+public class ValidateIngredientButton extends AppCompatButton implements View.OnClickListener
 {
     public ValidateIngredientButton(Context context)
     {
