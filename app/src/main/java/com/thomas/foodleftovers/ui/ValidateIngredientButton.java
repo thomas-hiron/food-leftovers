@@ -3,7 +3,9 @@ package com.thomas.foodleftovers.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.EditText;
+
+import com.thomas.foodleftovers.R;
 
 /**
  * Réagit au clic sur le bouton d'ajout d'ingrédient
@@ -36,6 +38,12 @@ public class ValidateIngredientButton extends android.support.v7.widget.AppCompa
     @Override
     public void onClick(View view)
     {
-        Toast.makeText(getContext(), "Clicked!", Toast.LENGTH_SHORT).show();
+        /* Récupération de la valeur de l'EditText */
+        View parent = (View) getParent();
+        EditText input = parent.findViewById(R.id.input_enter_ingredient);
+        String ingredient = input.getText().toString();
+
+        /* Suppression du input */
+        input.setText(null);
     }
 }
