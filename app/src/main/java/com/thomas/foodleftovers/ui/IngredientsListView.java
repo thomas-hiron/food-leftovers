@@ -45,7 +45,10 @@ public class IngredientsListView extends ListView
      */
     public void addIngredient(String ingredient)
     {
-        mAdapter.insert(ingredient, 0);
-        mAdapter.notifyDataSetChanged();
+        if (!ingredient.trim().equals(""))
+        {
+            mAdapter.insert(ingredient, 0);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }
