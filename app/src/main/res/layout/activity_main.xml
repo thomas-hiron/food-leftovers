@@ -36,7 +36,7 @@
                     android:layout_weight="0.9"
                     android:hint="@string/enter_ingredient"/>
 
-                <Button
+                <com.thomas.foodleftovers.ui.ValidateIngredientButton
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.1"
