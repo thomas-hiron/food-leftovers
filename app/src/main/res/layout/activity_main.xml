@@ -18,17 +18,16 @@
             android:layout_height="0dp"
             android:layout_weight="0.8"/>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.2"
-            tools:ignore="UselessLeaf">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                tools:ignore="UselessParent">
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/input_enter_ingredient"
@@ -45,7 +44,14 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
+            <com.thomas.foodleftovers.ui.IngredientsListView
+                android:id="@+id/ingredients_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.thomas.foodleftovers.ui.IngredientsListView>
+
+        </LinearLayout>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
