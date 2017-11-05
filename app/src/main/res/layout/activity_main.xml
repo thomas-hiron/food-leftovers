@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/search_receipes"
-            android:visibility="gone"/>
+            android:visibility="invisible"/>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

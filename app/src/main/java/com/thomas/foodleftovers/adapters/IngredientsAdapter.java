@@ -60,7 +60,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
         super.notifyDataSetChanged();
 
         /* Toggle button */
-        mSearchReceipesButton.setVisibility(hasFetched() ? View.VISIBLE : View.GONE);
+        mSearchReceipesButton.setVisibility(hasFetched() ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
