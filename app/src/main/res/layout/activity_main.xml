@@ -51,7 +51,7 @@
 
             </com.thomas.foodleftovers.ui.IngredientsListView>
 
-            <Button
+            <com.thomas.foodleftovers.ui.SearchReceipesButton
                 android:id="@+id/search_receipes_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
