@@ -83,7 +83,7 @@ public class LoadOutpanIngredient extends AsyncTask<String, Integer, String>
             ingredientName = null;
 
         /* Ajout du nom */
-        mIngredient.setText(ingredientName);
+        mIngredient.setName(ingredientName);
 
         mListener.onIngredientRequestComplete(mIngredient);
     }

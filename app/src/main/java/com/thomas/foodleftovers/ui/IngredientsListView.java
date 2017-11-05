@@ -62,7 +62,7 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
         {
             /* Instanciation de l'ingrédient */
             Ingredient ingredient = new Ingredient();
-            ingredient.setText(text);
+            ingredient.setName(text);
 
             mAdapter.insert(ingredient, 0);
             mAdapter.notifyDataSetChanged();
@@ -83,8 +83,7 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
         {
             /* Instanciation de l'ingrédient */
             Ingredient ingredient = new Ingredient();
-            ingredient.setText(getResources().getString(R.string.adding_ingredient));
-            ingredient.setBarcode(barcode);
+            ingredient.setName(getResources().getString(R.string.adding_ingredient));
 
             mAdapter.insert(ingredient, 0);
             mAdapter.notifyDataSetChanged();
@@ -100,10 +99,10 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
     @Override
     public void onIngredientRequestComplete(Ingredient ingredient)
     {
-        if (ingredient.getText() != null)
+        if (ingredient.getName() != null)
         {
             /* Modification du texte */
-            ingredient.setText(ingredient.getText());
+            ingredient.setName(ingredient.getName());
 
             /* Update view */
             mAdapter.notifyDataSetChanged();

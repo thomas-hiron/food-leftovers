@@ -5,26 +5,15 @@ package com.thomas.foodleftovers.popo;
  */
 public class Ingredient
 {
-    private String barcode;
-    private String text;
+    private String name;
 
-    public String getBarcode()
+    public String getName()
     {
-        return barcode;
+        return name;
     }
 
-    public void setBarcode(String barcode)
+    public void setName(String name)
     {
-        this.barcode = barcode;
-    }
-
-    public String getText()
-    {
-        return text;
-    }
-
-    public void setText(String text)
-    {
-        this.text = text;
+        this.name = name;
     }
 }

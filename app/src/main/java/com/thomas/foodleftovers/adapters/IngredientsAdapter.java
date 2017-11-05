@@ -41,7 +41,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
         /* Ajout du nom de l'ingrédient */
         Ingredient ingredient = getItem(position);
         if (ingredient != null)
-            ((TextView) view.findViewById(R.id.ingredient_text)).setText(ingredient.getText());
+            ((TextView) view.findViewById(R.id.ingredient_text)).setText(ingredient.getName());
 
         /* Ajout du listener */
         view.findViewById(R.id.delete_ingredient).setOnClickListener(this);

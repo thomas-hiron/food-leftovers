@@ -40,7 +40,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.1"
-                    android:text="@string/validate_ingredient"/>
+                    android:name="@string/validate_ingredient"/>
 
             </LinearLayout>
 
