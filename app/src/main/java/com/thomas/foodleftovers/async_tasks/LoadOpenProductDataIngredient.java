@@ -22,7 +22,7 @@ import javax.net.ssl.HttpsURLConnection;
  * Effectue une requête API chez Open Product Data
  * https://pod.opendatasoft.com/explore/
  */
-public class LoadOpenProductDataIngredient extends AsyncTask<String, Integer, String>
+public class LoadOpenProductDataIngredient extends AsyncTask<Long, Integer, String>
 {
     private final static String URL = "https://pod.opendatasoft.com/api/records/1.0/search/?dataset=%s&q=%s";
     /* Infos sur les produits */
@@ -40,13 +40,13 @@ public class LoadOpenProductDataIngredient extends AsyncTask<String, Integer, St
     }
 
     @Override
-    protected String doInBackground(String... strings)
+    protected String doInBackground(Long... longs)
     {
         HttpsURLConnection urlConnection = null;
         StringBuilder result = new StringBuilder();
         try
         {
-            java.net.URL url = new URL(String.format(URL, GTIN_PRODUCT, strings[0]));
+            java.net.URL url = new URL(String.format(URL, GTIN_PRODUCT, longs[0]));
             urlConnection = (HttpsURLConnection) url.openConnection();
 
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK)

@@ -22,7 +22,7 @@ import javax.net.ssl.HttpsURLConnection;
  * Effectue une reqûete API chez Outpan
  * https://outpan.mixnode.com/developers
  */
-public class LoadOutpanIngredient extends AsyncTask<String, Integer, String>
+public class LoadOutpanIngredient extends AsyncTask<Long, Integer, String>
 {
     private static final String URL = "https://api.outpan.com/v2/products/%s?apikey=%s";
     private static final String API_KEY = "3ab74e079cd619e61496b2ee0789face";
@@ -37,13 +37,13 @@ public class LoadOutpanIngredient extends AsyncTask<String, Integer, String>
     }
 
     @Override
-    protected String doInBackground(String... strings)
+    protected String doInBackground(Long... longs)
     {
         HttpsURLConnection urlConnection = null;
         StringBuilder result = new StringBuilder();
         try
         {
-            URL url = new URL(String.format(URL, strings[0], API_KEY));
+            URL url = new URL(String.format(URL, longs[0], API_KEY));
             urlConnection = (HttpsURLConnection) url.openConnection();
 
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK)

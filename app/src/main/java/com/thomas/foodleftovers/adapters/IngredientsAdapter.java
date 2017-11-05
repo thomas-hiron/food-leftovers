@@ -60,12 +60,45 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
             IngredientsListView listView = (IngredientsListView) parentRow.getParent();
             final int position = listView.getPositionForView(parentRow);
 
-            /* Suppression dans la liste */
-            listView.removeIngredient(getItem(position));
-
             /* Suppression */
             remove(getItem(position));
             notifyDataSetChanged();
         }
+    }
+
+    /**
+     * Si l'adapter contient un ingrédient
+     *
+     * @param ingredientName Le nom de l'ingrédient à tester
+     * @return Si l'ingrédient est déjà dans la liste
+     */
+    public boolean containsName(String ingredientName)
+    {
+        for (int i = 0, l = getCount(); i < l; ++i)
+        {
+            Ingredient ingredient = getItem(i);
+            if (ingredient != null && ingredient.getName() != null && ingredient.getName().equalsIgnoreCase(ingredientName))
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Si l'adapter contient un code barre
+     *
+     * @param barcode Le code barre à tester
+     * @return Si le code barre a été trouvé
+     */
+    public boolean containsBarcode(long barcode)
+    {
+        for (int i = 0, l = getCount(); i < l; ++i)
+        {
+            Ingredient ingredient = getItem(i);
+            if (ingredient != null && ingredient.getBarcode() != 0 && ingredient.getBarcode() == barcode)
+                    return true;
+        }
+
+        return false;
     }
 }

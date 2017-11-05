@@ -26,7 +26,6 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
     private final static int OPEN_PRODUCT_DATA_API = 3;
 
     private IngredientsAdapter mAdapter;
-    private List<String> mTextList;
 
     public IngredientsListView(Context context)
     {
@@ -48,9 +47,6 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
     {
         super.onAttachedToWindow();
 
-        /* Init list */
-        mTextList = new ArrayList<>();
-
         /* Ajout de l'adapter */
         mAdapter = new IngredientsAdapter(getContext());
         setAdapter(mAdapter);
@@ -59,25 +55,22 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
     /**
      * Ajoute un ingrédient dans la liste en premier depuis le EditText
      *
-     * @param text Le nom de l'ingrédient
+     * @param ingredientName Le nom de l'ingrédient
      */
-    public void addIngredientFromInput(String text)
+    public void addIngredientFromInput(String ingredientName)
     {
-        text = text.trim();
-        if (!text.equals(""))
+        ingredientName = ingredientName.trim();
+        if (!ingredientName.equals(""))
         {
             /* Pas présent */
-            if (!mTextList.contains(text.toLowerCase()))
+            if (!mAdapter.containsName(ingredientName))
             {
                 /* Instanciation de l'ingrédient */
                 Ingredient ingredient = new Ingredient();
-                ingredient.setName(text);
+                ingredient.setName(ingredientName);
 
                 mAdapter.insert(ingredient, 0);
                 mAdapter.notifyDataSetChanged();
-
-                /* Ajout à la liste */
-                mTextList.add(text.toLowerCase());
             }
             /* Affichage toast */
             else
@@ -90,9 +83,9 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
      *
      * @param barcode Le code barre
      */
-    public void addIngredientFromBarcode(String barcode)
+    public void addIngredientFromBarcode(long barcode)
     {
-        if (!mTextList.contains(barcode))
+        if (!mAdapter.containsBarcode(barcode))
         {
             /* Instanciation de l'ingrédient */
             Ingredient ingredient = new Ingredient();
@@ -101,9 +94,6 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
 
             mAdapter.insert(ingredient, 0);
             mAdapter.notifyDataSetChanged();
-
-            /* Ajout à la liste */
-            mTextList.add(ingredient.getBarcode());
 
             /* Chargement en tâche de fond */
             loadIngredient(ingredient, ingredient.getBarcode(), OPEN_FOOD_FACTS_API);
@@ -117,7 +107,7 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
      * @param barcode    Le code barre
      * @param apiCode    Le code de l'API
      */
-    private void loadIngredient(Ingredient ingredient, String barcode, int apiCode)
+    private void loadIngredient(Ingredient ingredient, long barcode, int apiCode)
     {
         switch (apiCode)
         {
@@ -142,14 +132,14 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
     {
         if (ingredient.getName() != null)
         {
-            /* Pas présent dans la liste, ajout */
-            if (!mTextList.contains(ingredient.getName().toLowerCase()))
-            {
-                /* Modification du texte */
-                ingredient.setName(ingredient.getName());
+            /* Récupération du nom dans un var tmp pour tester si ça existe déjà */
+            String tmpName = ingredient.getName();
+            ingredient.setName(null);
 
-                /* Ajout dans la liste */
-                mTextList.add(ingredient.getName().toLowerCase());
+            /* Pas présent dans la liste, ajout */
+            if (!mAdapter.containsName(tmpName))
+            {
+                ingredient.setName(tmpName);
 
                 /* Update view */
                 mAdapter.notifyDataSetChanged();
@@ -165,9 +155,6 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
             toastIngredientNotFound();
             removeFromAdapter(ingredient);
         }
-
-        /* Suppression de la liste pour rescanner au cas où */
-        mTextList.remove(ingredient.getBarcode());
     }
 
     /**
@@ -198,15 +185,5 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
         /* Suppression de l'ingrédient de l'adapter */
         mAdapter.remove(ingredient);
         mAdapter.notifyDataSetChanged();
-    }
-
-    /**
-     * Supprime un ingrédient de la liste
-     *
-     * @param ingredient L'ingrédient à supprimer
-     */
-    public void removeIngredient(Ingredient ingredient)
-    {
-        mTextList.remove(ingredient.getName().toLowerCase());
     }
 }

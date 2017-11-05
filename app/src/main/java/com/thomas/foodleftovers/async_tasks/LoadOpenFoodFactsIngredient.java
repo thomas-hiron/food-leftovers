@@ -22,7 +22,7 @@ import javax.net.ssl.HttpsURLConnection;
  * Effectue une requête API chez Open Food Facts
  * https://fr.openfoodfacts.org/data
  */
-public class LoadOpenFoodFactsIngredient extends AsyncTask<String, Integer, String>
+public class LoadOpenFoodFactsIngredient extends AsyncTask<Long, Integer, String>
 {
     private final static String URL = "https://fr.openfoodfacts.org/api/v0/produit/%s.json";
 
@@ -36,13 +36,13 @@ public class LoadOpenFoodFactsIngredient extends AsyncTask<String, Integer, Stri
     }
 
     @Override
-    protected String doInBackground(String... strings)
+    protected String doInBackground(Long... longs)
     {
         HttpsURLConnection urlConnection = null;
         StringBuilder result = new StringBuilder();
         try
         {
-            URL url = new URL(String.format(URL, strings[0]));
+            URL url = new URL(String.format(URL, longs[0]));
             urlConnection = (HttpsURLConnection) url.openConnection();
 
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK)
