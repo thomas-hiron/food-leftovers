@@ -100,15 +100,16 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
             /* Instanciation de l'ingrédient */
             Ingredient ingredient = new Ingredient();
             ingredient.setName(getResources().getString(R.string.adding_ingredient));
+            ingredient.setBarcode(barcode);
 
             mAdapter.insert(ingredient, 0);
             mAdapter.notifyDataSetChanged();
 
             /* Ajout à la liste */
-            mTextList.add(barcode);
+            mTextList.add(ingredient.getBarcode());
 
             /* Chargement en tâche de fond */
-            loadIngredient(ingredient, barcode, OPEN_FOOD_FACTS_API);
+            loadIngredient(ingredient, ingredient.getBarcode(), OPEN_FOOD_FACTS_API);
         }
     }
 
@@ -172,5 +173,8 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
             mAdapter.remove(ingredient);
             mAdapter.notifyDataSetChanged();
         }
+
+        /* Suppression de la liste pour rescanner au cas où */
+        mTextList.remove(ingredient.getBarcode());
     }
 }
