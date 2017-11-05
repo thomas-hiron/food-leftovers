@@ -5,6 +5,10 @@ import android.util.AttributeSet;
 import android.widget.ListView;
 
 import com.thomas.foodleftovers.adapters.IngredientsAdapter;
+import com.thomas.foodleftovers.popo.Ingredient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Gère la liste des ingrédients
@@ -12,6 +16,7 @@ import com.thomas.foodleftovers.adapters.IngredientsAdapter;
 public class IngredientsListView extends ListView
 {
     private IngredientsAdapter mAdapter;
+    private List<String> mTextList;
 
     public IngredientsListView(Context context)
     {
@@ -33,6 +38,9 @@ public class IngredientsListView extends ListView
     {
         super.onAttachedToWindow();
 
+        /* Init list */
+        mTextList = new ArrayList<>();
+
         /* Ajout de l'adapter */
         mAdapter = new IngredientsAdapter(getContext());
         setAdapter(mAdapter);
@@ -41,14 +49,23 @@ public class IngredientsListView extends ListView
     /**
      * Ajoute un ingrédient dans la liste en premier
      *
-     * @param ingredient Le nom de l'ingrédient
+     * @param text Le nom de l'ingrédient
      */
-    public void addIngredient(String ingredient)
+    public void addIngredient(String text)
     {
-        if (!ingredient.trim().equals("") && mAdapter.getPosition(ingredient) == -1)
+        text = text.trim();
+        if (!text.equals("") && !mTextList.contains(text.toLowerCase()))
         {
+            /* Instanciation de l'ingrédient */
+            Ingredient ingredient = new Ingredient();
+            ingredient.setText(text);
+
+            /* Instanciation de l'ingrédient */
             mAdapter.insert(ingredient, 0);
             mAdapter.notifyDataSetChanged();
+
+            /* Ajout à la liste */
+            mTextList.add(text.toLowerCase());
         }
     }
 }

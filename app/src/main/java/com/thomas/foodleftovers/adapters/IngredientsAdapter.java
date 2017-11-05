@@ -9,12 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.thomas.foodleftovers.R;
+import com.thomas.foodleftovers.popo.Ingredient;
 import com.thomas.foodleftovers.ui.IngredientsListView;
 
 /**
  * L'adapter de la liste des ingrédients
  */
-public class IngredientsAdapter extends ArrayAdapter<String> implements View.OnClickListener
+public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View.OnClickListener
 {
     private LayoutInflater mInflater;
 
@@ -38,7 +39,9 @@ public class IngredientsAdapter extends ArrayAdapter<String> implements View.OnC
             view = convertView;
 
         /* Ajout du nom de l'ingrédient */
-        ((TextView) view.findViewById(R.id.ingredient_text)).setText(getItem(position));
+        Ingredient ingredient = getItem(position);
+        if (ingredient != null)
+            ((TextView) view.findViewById(R.id.ingredient_text)).setText(ingredient.getText());
 
         /* Ajout du listener */
         view.findViewById(R.id.delete_ingredient).setOnClickListener(this);
