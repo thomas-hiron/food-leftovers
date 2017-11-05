@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.thomas.foodleftovers.R;
 import com.thomas.foodleftovers.adapters.IngredientsAdapter;
 import com.thomas.foodleftovers.async_tasks.LoadOpenFoodFactsIngredient;
+import com.thomas.foodleftovers.async_tasks.LoadOpenProductDataIngredient;
 import com.thomas.foodleftovers.async_tasks.LoadOutpanIngredient;
 import com.thomas.foodleftovers.interfaces.listeners.OnIngredientRequestComplete;
 import com.thomas.foodleftovers.popo.Ingredient;
@@ -22,6 +23,7 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
 {
     private final static int OUTPAN_API = 1;
     private final static int OPEN_FOOD_FACTS_API = 2;
+    private final static int OPEN_PRODUCT_DATA_API = 3;
 
     private IngredientsAdapter mAdapter;
     private List<String> mTextList;
@@ -96,7 +98,7 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
             mTextList.add(barcode);
 
             /* Chargement en tâche de fond */
-            loadIngredient(ingredient, barcode, OPEN_FOOD_FACTS_API);
+            loadIngredient(ingredient, barcode, OPEN_PRODUCT_DATA_API);
         }
     }
 
@@ -116,6 +118,9 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
                 break;
             case OPEN_FOOD_FACTS_API:
                 new LoadOpenFoodFactsIngredient(this, ingredient).execute(barcode);
+                break;
+            case OPEN_PRODUCT_DATA_API:
+                new LoadOpenProductDataIngredient(this, ingredient).execute(barcode);
                 break;
             default:
                 ingredient.setName(null);

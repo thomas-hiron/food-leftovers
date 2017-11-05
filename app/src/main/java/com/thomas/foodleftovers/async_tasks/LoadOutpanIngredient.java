@@ -20,6 +20,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Effectue une reqûete API chez Outpan
+ * https://outpan.mixnode.com/developers
  */
 public class LoadOutpanIngredient extends AsyncTask<String, Integer, String>
 {

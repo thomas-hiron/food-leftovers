@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.thomas.foodleftovers.MainActivity;
 import com.thomas.foodleftovers.interfaces.listeners.OnIngredientRequestComplete;
-import com.thomas.foodleftovers.json_parsers.OpenFoodFactsParser;
+import com.thomas.foodleftovers.json_parsers.OpenProductDataParser;
 import com.thomas.foodleftovers.popo.Ingredient;
 
 import java.io.BufferedInputStream;
@@ -19,17 +19,21 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
- * Effectue une requête API chez Open Food Facts
- * https://fr.openfoodfacts.org/data
+ * Effectue une requête API chez Open Product Data
+ * https://pod.opendatasoft.com/explore/
  */
-public class LoadOpenFoodFactsIngredient extends AsyncTask<String, Integer, String>
+public class LoadOpenProductDataIngredient extends AsyncTask<String, Integer, String>
 {
-    private final static String URL = "https://fr.openfoodfacts.org/api/v0/produit/%s.json";
+    private final static String URL = "https://pod.opendatasoft.com/api/records/1.0/search/?dataset=%s&q=%s";
+    /* Infos sur les produits */
+    private final static String GTIN_PRODUCT = "pod_gtin";
+    /* Infos sur la nutrition */
+    private final static String GTIN_NUTRITION_INFO = "pod_nutrition_us";
 
     private final OnIngredientRequestComplete mListener;
     private final Ingredient mIngredient;
 
-    public LoadOpenFoodFactsIngredient(OnIngredientRequestComplete listener, Ingredient ingredient)
+    public LoadOpenProductDataIngredient(OnIngredientRequestComplete listener, Ingredient ingredient)
     {
         mListener = listener;
         mIngredient = ingredient;
@@ -42,7 +46,7 @@ public class LoadOpenFoodFactsIngredient extends AsyncTask<String, Integer, Stri
         StringBuilder result = new StringBuilder();
         try
         {
-            URL url = new URL(String.format(URL, strings[0]));
+            java.net.URL url = new URL(String.format(URL, GTIN_PRODUCT, strings[0]));
             urlConnection = (HttpsURLConnection) url.openConnection();
 
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK)
@@ -75,7 +79,7 @@ public class LoadOpenFoodFactsIngredient extends AsyncTask<String, Integer, Stri
         super.onPostExecute(s);
 
         /* Parse de la réponse */
-        String ingredientName = OpenFoodFactsParser.PARSE_NAME(s);
+        String ingredientName = OpenProductDataParser.PARSE_NAME(s);
 
         /* Ajout du nom */
         mIngredient.setName(ingredientName);
