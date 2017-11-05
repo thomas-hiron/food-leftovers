@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
+import com.thomas.foodleftovers.R;
 import com.thomas.foodleftovers.adapters.IngredientsAdapter;
 import com.thomas.foodleftovers.popo.Ingredient;
 
@@ -79,7 +80,7 @@ public class IngredientsListView extends ListView
         {
             /* Instanciation de l'ingrédient */
             Ingredient ingredient = new Ingredient();
-            ingredient.setText("Ajout en cours...");
+            ingredient.setText(getResources().getString(R.string.adding_ingredient));
             ingredient.setBarcode(barcode);
 
             mAdapter.insert(ingredient, 0);

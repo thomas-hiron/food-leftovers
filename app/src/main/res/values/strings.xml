@@ -3,4 +3,5 @@
     <string name="enter_ingredient">Saisissez un ingrédient</string>
     <string name="validate_ingredient"><![CDATA[>]]></string>
     <string name="delete_cross">x</string>
+    <string name="adding_ingredient">Ajout en cours…</string>
 </resources>
