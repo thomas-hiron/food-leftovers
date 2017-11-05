@@ -23,7 +23,7 @@
         android:layout_marginEnd="5dp"
         android:layout_weight="0.1"
         android:background="@null"
-        android:name="@string/delete_cross"
+        android:text="@string/delete_cross"
         android:textColor="#FF0000"/>
 
 </LinearLayout>
