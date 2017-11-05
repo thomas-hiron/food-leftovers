@@ -7,6 +7,7 @@ public class Ingredient
 {
     private long barcode;
     private String name;
+    private boolean fetch = false;
 
     public long getBarcode()
     {
@@ -26,5 +27,15 @@ public class Ingredient
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public boolean isFetch()
+    {
+        return fetch;
+    }
+
+    public void setFetch(boolean fetch)
+    {
+        this.fetch = fetch;
     }
 }

@@ -59,10 +59,8 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
     {
         super.notifyDataSetChanged();
 
-        if(getCount() > 0)
-            mSearchReceipesButton.setVisibility(View.VISIBLE);
-        else
-            mSearchReceipesButton.setVisibility(View.GONE);
+        /* Toggle button */
+        mSearchReceipesButton.setVisibility(hasFetched() ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -82,6 +80,21 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
     }
 
     /**
+     * @return Si des ingrédients on été récupérés
+     */
+    private boolean hasFetched()
+    {
+        for (int i = 0, l = getCount(); i < l; ++i)
+        {
+            Ingredient ingredient = getItem(i);
+            if (ingredient != null && ingredient.isFetch())
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Si l'adapter contient un ingrédient
      *
      * @param ingredientName Le nom de l'ingrédient à tester
@@ -92,7 +105,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
         for (int i = 0, l = getCount(); i < l; ++i)
         {
             Ingredient ingredient = getItem(i);
-            if (ingredient != null && ingredient.getName() != null && ingredient.getName().equalsIgnoreCase(ingredientName))
+            if (ingredient != null && ingredient.isFetch() && ingredient.getName() != null && ingredient.getName().equalsIgnoreCase(ingredientName))
                 return true;
         }
 
@@ -111,7 +124,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
         {
             Ingredient ingredient = getItem(i);
             if (ingredient != null && ingredient.getBarcode() != 0 && ingredient.getBarcode() == barcode)
-                    return true;
+                return true;
         }
 
         return false;

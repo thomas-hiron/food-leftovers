@@ -71,6 +71,7 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
                 /* Instanciation de l'ingrédient */
                 Ingredient ingredient = new Ingredient();
                 ingredient.setName(ingredientName);
+                ingredient.setFetch(true);
 
                 mAdapter.insert(ingredient, 0);
                 mAdapter.notifyDataSetChanged();
@@ -135,14 +136,11 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
     {
         if (ingredient.getName() != null)
         {
-            /* Récupération du nom dans un var tmp pour tester si ça existe déjà */
-            String tmpName = ingredient.getName();
-            ingredient.setName(null);
-
             /* Pas présent dans la liste, ajout */
-            if (!mAdapter.containsName(tmpName))
+            if (!mAdapter.containsName(ingredient.getName()))
             {
-                ingredient.setName(tmpName);
+                /* Fetched */
+                ingredient.setFetch(true);
 
                 /* Update view */
                 mAdapter.notifyDataSetChanged();
