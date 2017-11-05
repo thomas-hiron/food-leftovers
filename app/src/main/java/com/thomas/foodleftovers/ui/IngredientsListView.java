@@ -64,17 +64,27 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
     public void addIngredientFromInput(String text)
     {
         text = text.trim();
-        if (!text.equals("") && !mTextList.contains(text.toLowerCase()))
+        if (!text.equals(""))
         {
-            /* Instanciation de l'ingrédient */
-            Ingredient ingredient = new Ingredient();
-            ingredient.setName(text);
+            /* Pas présent */
+            if (!mTextList.contains(text.toLowerCase()))
+            {
+                /* Instanciation de l'ingrédient */
+                Ingredient ingredient = new Ingredient();
+                ingredient.setName(text);
 
-            mAdapter.insert(ingredient, 0);
-            mAdapter.notifyDataSetChanged();
+                mAdapter.insert(ingredient, 0);
+                mAdapter.notifyDataSetChanged();
 
-            /* Ajout à la liste */
-            mTextList.add(text.toLowerCase());
+                /* Ajout à la liste */
+                mTextList.add(text.toLowerCase());
+            }
+            /* Affichage toast */
+            else
+            {
+                String error = getContext().getResources().getString(R.string.existing_ingredient);
+                Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
