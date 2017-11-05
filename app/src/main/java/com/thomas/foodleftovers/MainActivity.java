@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.google.zxing.ResultPoint;
@@ -19,11 +20,12 @@ import com.thomas.foodleftovers.ui.IngredientsListView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements ViewTreeObserver.OnGlobalLayoutListener
 {
     public static final String APP_TAG = "FOOD";
     private static final int CAMERA = 1;
 
+    private boolean mKeyboardOpened;
     private DecoratedBarcodeView barcodeView;
 
     private BarcodeCallback callback = new BarcodeCallback()
@@ -61,6 +63,10 @@ public class MainActivity extends AppCompatActivity
             Log.i("FOOD", "pas de permission");
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA);
         }
+
+        /* Gestion de l'ouverture du clavier */
+        final View activityRootView = getWindow().getDecorView().findViewById(android.R.id.content);
+        activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 
     @Override
@@ -76,7 +82,6 @@ public class MainActivity extends AppCompatActivity
                 }
                 else
                 {
-                    Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
                     barcodeView.resume();
                 }
 
@@ -106,5 +111,31 @@ public class MainActivity extends AppCompatActivity
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
         return barcodeView.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onGlobalLayout()
+    {
+        final View activityRootView = getWindow().getDecorView().findViewById(android.R.id.content);
+        DecoratedBarcodeView barcodeView = findViewById(R.id.barcode);
+        int heightDiff = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
+        /* 99% of the time the height diff will be due to a keyboard. */
+        if (heightDiff > 100)
+        {
+            if (!mKeyboardOpened)
+            {
+                /* Suppression du scanner */
+                barcodeView.pause();
+                barcodeView.setVisibility(View.GONE);
+            }
+            mKeyboardOpened = true;
+        }
+        else if (mKeyboardOpened)
+        {
+            /* Ajout du scanner */
+            barcodeView.resume();
+            barcodeView.setVisibility(View.VISIBLE);
+            mKeyboardOpened = false;
+        }
     }
 }
