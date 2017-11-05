@@ -5,4 +5,5 @@
     <string name="delete_cross">x</string>
     <string name="adding_ingredient">Ajout en cours…</string>
     <string name="ingredient_not_found">L\'ingrédient n\'a pas été trouvé, merci de le renseigner manuellement</string>
+    <string name="existing_ingredient">L\'ingrédient est déjà présent dans la liste</string>
 </resources>

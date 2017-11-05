@@ -98,7 +98,7 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
             mTextList.add(barcode);
 
             /* Chargement en tâche de fond */
-            loadIngredient(ingredient, barcode, OPEN_PRODUCT_DATA_API);
+            loadIngredient(ingredient, barcode, OPEN_FOOD_FACTS_API);
         }
     }
 
@@ -132,18 +132,30 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
     @Override
     public void onIngredientRequestComplete(Ingredient ingredient)
     {
+        String error = null;
         if (ingredient.getName() != null)
         {
-            /* Modification du texte */
-            ingredient.setName(ingredient.getName());
+            /* Pas présent dans la liste, ajout */
+            if (!mTextList.contains(ingredient.getName().toLowerCase()))
+            {
+                /* Modification du texte */
+                ingredient.setName(ingredient.getName());
 
-            /* Update view */
-            mAdapter.notifyDataSetChanged();
+                /* Ajout dans la liste */
+                mTextList.add(ingredient.getName().toLowerCase());
+
+                /* Update view */
+                mAdapter.notifyDataSetChanged();
+            }
+            else
+                error = getContext().getResources().getString(R.string.existing_ingredient);
         }
         else
+            error = getContext().getResources().getString(R.string.ingredient_not_found);
+
+        /* Affichage d'un toast */
+        if (error != null)
         {
-            /* Affichage d'un toast */
-            String error = getContext().getResources().getString(R.string.ingredient_not_found);
             Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
 
             /* Suppression de l'ingrédient de l'adapter */
