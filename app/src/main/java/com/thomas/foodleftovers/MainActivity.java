@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity
         {
             /* Ajout dans l'adapter */
             IngredientsListView list = findViewById(R.id.ingredients_list);
-            list.addIngredient(result.getText());
+            list.addIngredientFromBarcode(result.getText());
         }
 
         @Override

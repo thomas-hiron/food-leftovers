@@ -51,6 +51,6 @@ public class ValidateIngredientButton extends AppCompatButton implements View.On
         View root = getRootView();
         IngredientsListView listView = root.findViewById(R.id.ingredients_list);
 
-        listView.addIngredient(ingredient);
+        listView.addIngredientFromInput(ingredient);
     }
 }

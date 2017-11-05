@@ -47,11 +47,11 @@ public class IngredientsListView extends ListView
     }
 
     /**
-     * Ajoute un ingrédient dans la liste en premier
+     * Ajoute un ingrédient dans la liste en premier depuis le EditText
      *
      * @param text Le nom de l'ingrédient
      */
-    public void addIngredient(String text)
+    public void addIngredientFromInput(String text)
     {
         text = text.trim();
         if (!text.equals("") && !mTextList.contains(text.toLowerCase()))
@@ -60,12 +60,33 @@ public class IngredientsListView extends ListView
             Ingredient ingredient = new Ingredient();
             ingredient.setText(text);
 
-            /* Instanciation de l'ingrédient */
             mAdapter.insert(ingredient, 0);
             mAdapter.notifyDataSetChanged();
 
             /* Ajout à la liste */
             mTextList.add(text.toLowerCase());
+        }
+    }
+
+    /**
+     * Ajoute un ingrédient récupéré avec le code barre
+     *
+     * @param barcode Le code barre
+     */
+    public void addIngredientFromBarcode(String barcode)
+    {
+        if(!mTextList.contains(barcode))
+        {
+            /* Instanciation de l'ingrédient */
+            Ingredient ingredient = new Ingredient();
+            ingredient.setText("Ajout en cours...");
+            ingredient.setBarcode(barcode);
+
+            mAdapter.insert(ingredient, 0);
+            mAdapter.notifyDataSetChanged();
+
+            /* Ajout à la liste */
+            mTextList.add(barcode);
         }
     }
 }
