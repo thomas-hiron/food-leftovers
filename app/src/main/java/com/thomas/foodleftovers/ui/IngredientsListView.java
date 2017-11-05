@@ -1,11 +1,13 @@
 package com.thomas.foodleftovers.ui;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
 import com.thomas.foodleftovers.R;
 import com.thomas.foodleftovers.adapters.IngredientsAdapter;
+import com.thomas.foodleftovers.async_task.LoadIngredient;
 import com.thomas.foodleftovers.popo.Ingredient;
 
 import java.util.ArrayList;
@@ -88,6 +90,9 @@ public class IngredientsListView extends ListView
 
             /* Ajout à la liste */
             mTextList.add(barcode);
+
+            /* Chargement en tâche de fond */
+            new LoadIngredient(ingredient, mAdapter).execute();
         }
     }
 }
