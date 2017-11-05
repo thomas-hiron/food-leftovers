@@ -47,7 +47,7 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
         super.onAttachedToWindow();
 
         /* Récupération du bouton de recherche */
-        View parent = (View) getParent();
+        View parent = getRootView();
         Button searchReceipesButton = parent.findViewById(R.id.search_receipes_button);
 
         /* Ajout de l'adapter */
