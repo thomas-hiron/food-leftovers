@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.thomas.foodleftovers.R;
@@ -17,12 +18,15 @@ import com.thomas.foodleftovers.ui.IngredientsListView;
  */
 public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View.OnClickListener
 {
+    private Button mSearchReceipesButton;
     private LayoutInflater mInflater;
 
-    public IngredientsAdapter(Context context)
+    public IngredientsAdapter(Context context, Button searchReceipesButton)
     {
         super(context, R.layout.ingredients_list);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        mSearchReceipesButton = searchReceipesButton;
     }
 
     @NonNull
@@ -48,6 +52,17 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
 
         /* Retour de la vue */
         return view;
+    }
+
+    @Override
+    public void notifyDataSetChanged()
+    {
+        super.notifyDataSetChanged();
+
+        if(getCount() > 0)
+            mSearchReceipesButton.setVisibility(View.VISIBLE);
+        else
+            mSearchReceipesButton.setVisibility(View.GONE);
     }
 
     @Override

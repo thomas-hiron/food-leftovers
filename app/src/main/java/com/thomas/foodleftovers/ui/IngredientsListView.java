@@ -2,6 +2,8 @@ package com.thomas.foodleftovers.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -12,9 +14,6 @@ import com.thomas.foodleftovers.async_tasks.LoadOpenProductDataIngredient;
 import com.thomas.foodleftovers.async_tasks.LoadOutpanIngredient;
 import com.thomas.foodleftovers.interfaces.listeners.OnIngredientRequestComplete;
 import com.thomas.foodleftovers.popo.Ingredient;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Gère la liste des ingrédients
@@ -47,8 +46,12 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
     {
         super.onAttachedToWindow();
 
+        /* Récupération du bouton de recherche */
+        View parent = (View) getParent();
+        Button searchReceipesButton = parent.findViewById(R.id.search_receipes_button);
+
         /* Ajout de l'adapter */
-        mAdapter = new IngredientsAdapter(getContext());
+        mAdapter = new IngredientsAdapter(getContext(), searchReceipesButton);
         setAdapter(mAdapter);
     }
 
