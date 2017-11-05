@@ -19,12 +19,12 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
- * Effectue une reqûete API
+ * Effectue une reqûete API chez Outpan
  */
 public class LoadOutpanIngredient extends AsyncTask<String, Integer, String>
 {
-    private static final String OUTPAN_URL = "https://api.outpan.com/v2/products/%s?apikey=%s";
-    private static final String OUTPAN_KEY = "3ab74e079cd619e61496b2ee0789face";
+    private static final String URL = "https://api.outpan.com/v2/products/%s?apikey=%s";
+    private static final String API_KEY = "3ab74e079cd619e61496b2ee0789face";
 
     private final OnIngredientRequestComplete mListener;
     private final Ingredient mIngredient;
@@ -42,7 +42,7 @@ public class LoadOutpanIngredient extends AsyncTask<String, Integer, String>
         StringBuilder result = new StringBuilder();
         try
         {
-            URL url = new URL(String.format(OUTPAN_URL, strings[0], OUTPAN_KEY));
+            URL url = new URL(String.format(URL, strings[0], API_KEY));
             urlConnection = (HttpsURLConnection) url.openConnection();
 
             if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK)
@@ -54,7 +54,6 @@ public class LoadOutpanIngredient extends AsyncTask<String, Integer, String>
                 while ((line = reader.readLine()) != null)
                     result.append(line);
             }
-
         }
         catch (IOException e)
         {

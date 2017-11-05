@@ -19,6 +19,9 @@ import java.util.List;
  */
 public class IngredientsListView extends ListView implements OnIngredientRequestComplete
 {
+    private final static int OUTPAN_API = 1;
+    private final static int OPEN_FOOD_FACTS_API = 2;
+
     private IngredientsAdapter mAdapter;
     private List<String> mTextList;
 
@@ -92,7 +95,28 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
             mTextList.add(barcode);
 
             /* Chargement en tâche de fond */
-            new LoadOutpanIngredient(this, ingredient).execute(barcode);
+            loadIngredient(ingredient, barcode, OUTPAN_API);
+        }
+    }
+
+    /**
+     * Charge les infos suivant la bonne API
+     *
+     * @param ingredient L'ingrédient
+     * @param barcode    Le code barre
+     * @param apiCode    Le code de l'API
+     */
+    private void loadIngredient(Ingredient ingredient, String barcode, int apiCode)
+    {
+        switch (apiCode)
+        {
+            case OUTPAN_API:
+                new LoadOutpanIngredient(this, ingredient).execute(barcode);
+                break;
+            default:
+                ingredient.setName(null);
+                onIngredientRequestComplete(ingredient);
+                break;
         }
     }
 
