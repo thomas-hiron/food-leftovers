@@ -81,10 +81,7 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
             }
             /* Affichage toast */
             else
-            {
-                String error = getContext().getResources().getString(R.string.existing_ingredient);
-                Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
-            }
+                toastExistingIngredient();
         }
     }
 
@@ -143,7 +140,6 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
     @Override
     public void onIngredientRequestComplete(Ingredient ingredient)
     {
-        String error = null;
         if (ingredient.getName() != null)
         {
             /* Pas présent dans la liste, ajout */
@@ -159,23 +155,49 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
                 mAdapter.notifyDataSetChanged();
             }
             else
-                error = getContext().getResources().getString(R.string.existing_ingredient);
+            {
+                toastExistingIngredient();
+                removeFromAdapter(ingredient);
+            }
         }
         else
-            error = getContext().getResources().getString(R.string.ingredient_not_found);
-
-        /* Affichage d'un toast */
-        if (error != null)
         {
-            Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
-
-            /* Suppression de l'ingrédient de l'adapter */
-            mAdapter.remove(ingredient);
-            mAdapter.notifyDataSetChanged();
+            toastIngredientNotFound();
+            removeFromAdapter(ingredient);
         }
 
         /* Suppression de la liste pour rescanner au cas où */
         mTextList.remove(ingredient.getBarcode());
+    }
+
+    /**
+     * Affiche un toast pour un ingrédient qui existe déjà
+     */
+    private void toastExistingIngredient()
+    {
+        String error = getContext().getResources().getString(R.string.existing_ingredient);
+        Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Affiche un toast pour un ingrédient non trouvé
+     */
+    private void toastIngredientNotFound()
+    {
+        String error = getContext().getResources().getString(R.string.ingredient_not_found);
+        Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Supprime un ingrédient de l'adapter (Ajout en cours...)
+     *
+     * @param ingredient L'ingrédient à retirer
+     */
+    private void removeFromAdapter(Ingredient ingredient)
+    {
+        /* Suppression de l'ingrédient de l'adapter */
+        mAdapter.remove(ingredient);
+        mAdapter.notifyDataSetChanged();
     }
 
     /**
