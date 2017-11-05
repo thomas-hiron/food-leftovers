@@ -3,10 +3,12 @@ package com.thomas.foodleftovers.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.thomas.foodleftovers.R;
 import com.thomas.foodleftovers.adapters.IngredientsAdapter;
 import com.thomas.foodleftovers.async_tasks.LoadOutpanIngredient;
+import com.thomas.foodleftovers.interfaces.listeners.OnIngredientRequestComplete;
 import com.thomas.foodleftovers.popo.Ingredient;
 
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.List;
 /**
  * Gère la liste des ingrédients
  */
-public class IngredientsListView extends ListView
+public class IngredientsListView extends ListView implements OnIngredientRequestComplete
 {
     private IngredientsAdapter mAdapter;
     private List<String> mTextList;
@@ -77,7 +79,7 @@ public class IngredientsListView extends ListView
      */
     public void addIngredientFromBarcode(String barcode)
     {
-        if(!mTextList.contains(barcode))
+        if (!mTextList.contains(barcode))
         {
             /* Instanciation de l'ingrédient */
             Ingredient ingredient = new Ingredient();
@@ -91,7 +93,30 @@ public class IngredientsListView extends ListView
             mTextList.add(barcode);
 
             /* Chargement en tâche de fond */
-            new LoadOutpanIngredient(ingredient, mAdapter).execute(barcode);
+            new LoadOutpanIngredient(this, ingredient).execute(barcode);
+        }
+    }
+
+    @Override
+    public void onIngredientRequestComplete(Ingredient ingredient)
+    {
+        if (ingredient.getText() != null)
+        {
+            /* Modification du texte */
+            ingredient.setText(ingredient.getText());
+
+            /* Update view */
+            mAdapter.notifyDataSetChanged();
+        }
+        else
+        {
+            /* Affichage d'un toast */
+            String error = getContext().getResources().getString(R.string.ingredient_not_found);
+            Toast.makeText(getContext(), error, Toast.LENGTH_LONG).show();
+
+            /* Suppression de l'ingrédient de l'adapter */
+            mAdapter.remove(ingredient);
+            mAdapter.notifyDataSetChanged();
         }
     }
 }

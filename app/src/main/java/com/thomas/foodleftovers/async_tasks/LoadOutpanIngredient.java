@@ -4,7 +4,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.thomas.foodleftovers.MainActivity;
-import com.thomas.foodleftovers.adapters.IngredientsAdapter;
+import com.thomas.foodleftovers.interfaces.listeners.OnIngredientRequestComplete;
+import com.thomas.foodleftovers.json_parsers.OutpanParser;
 import com.thomas.foodleftovers.popo.Ingredient;
 
 import java.io.BufferedInputStream;
@@ -25,13 +26,13 @@ public class LoadOutpanIngredient extends AsyncTask<String, Integer, String>
     private static final String OUTPAN_URL = "https://api.outpan.com/v2/products/%s?apikey=%s";
     private static final String OUTPAN_KEY = "3ab74e079cd619e61496b2ee0789face";
 
-    private final IngredientsAdapter mAdapter;
+    private final OnIngredientRequestComplete mListener;
     private final Ingredient mIngredient;
 
-    public LoadOutpanIngredient(Ingredient ingredient, IngredientsAdapter adapter)
+    public LoadOutpanIngredient(OnIngredientRequestComplete listener, Ingredient ingredient)
     {
+        mListener = listener;
         mIngredient = ingredient;
-        mAdapter = adapter;
     }
 
     @Override
@@ -44,15 +45,14 @@ public class LoadOutpanIngredient extends AsyncTask<String, Integer, String>
             URL url = new URL(String.format(OUTPAN_URL, strings[0], OUTPAN_KEY));
             urlConnection = (HttpsURLConnection) url.openConnection();
 
-            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK)
+            {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
                 String line;
-                while ((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null)
                     result.append(line);
-                }
             }
 
         }
@@ -75,10 +75,16 @@ public class LoadOutpanIngredient extends AsyncTask<String, Integer, String>
     {
         super.onPostExecute(s);
 
-        /* Modification du texte */
-        mIngredient.setText(s);
+        /* Parse de la réponse */
+        String ingredientName = OutpanParser.PARSE_NAME(s);
 
-        /* Update view */
-        mAdapter.notifyDataSetChanged();
+        /* Clean name */
+        if (ingredientName.equals("null"))
+            ingredientName = null;
+
+        /* Ajout du nom */
+        mIngredient.setText(ingredientName);
+
+        mListener.onIngredientRequestComplete(mIngredient);
     }
 }
