@@ -177,4 +177,14 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
         /* Suppression de la liste pour rescanner au cas où */
         mTextList.remove(ingredient.getBarcode());
     }
+
+    /**
+     * Supprime un ingrédient de la liste
+     *
+     * @param ingredient L'ingrédient à supprimer
+     */
+    public void removeIngredient(Ingredient ingredient)
+    {
+        mTextList.remove(ingredient.getName().toLowerCase());
+    }
 }

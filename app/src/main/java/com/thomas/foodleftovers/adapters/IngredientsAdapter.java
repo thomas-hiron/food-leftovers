@@ -60,6 +60,9 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
             IngredientsListView listView = (IngredientsListView) parentRow.getParent();
             final int position = listView.getPositionForView(parentRow);
 
+            /* Suppression dans la liste */
+            listView.removeIngredient(getItem(position));
+
             /* Suppression */
             remove(getItem(position));
             notifyDataSetChanged();
