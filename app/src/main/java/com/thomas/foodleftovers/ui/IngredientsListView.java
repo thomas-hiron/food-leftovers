@@ -6,7 +6,7 @@ import android.widget.ListView;
 
 import com.thomas.foodleftovers.R;
 import com.thomas.foodleftovers.adapters.IngredientsAdapter;
-import com.thomas.foodleftovers.async_task.LoadOutpanIngredient;
+import com.thomas.foodleftovers.async_tasks.LoadOutpanIngredient;
 import com.thomas.foodleftovers.popo.Ingredient;
 
 import java.util.ArrayList;

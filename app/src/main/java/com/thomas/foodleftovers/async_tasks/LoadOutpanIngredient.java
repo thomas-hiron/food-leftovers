@@ -1,4 +1,4 @@
-package com.thomas.foodleftovers.async_task;
+package com.thomas.foodleftovers.async_tasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
