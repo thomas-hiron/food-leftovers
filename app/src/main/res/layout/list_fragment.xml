@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.thomas.foodleftovers.MainActivity">
+
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/barcode"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.thomas.foodleftovers.ui.EnterIngredientEditText
+                android:id="@+id/input_enter_ingredient"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:hint="@string/enter_ingredient"/>
+
+            <com.thomas.foodleftovers.ui.ValidateIngredientButton
+                android:id="@+id/validate_ingredient_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:text="@string/validate_ingredient"/>
+
+        </LinearLayout>
+
+        <com.thomas.foodleftovers.ui.IngredientsListView
+            android:id="@+id/ingredients_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.thomas.foodleftovers.ui.IngredientsListView>
+
+    </LinearLayout>
+
+    <com.thomas.foodleftovers.ui.SearchReceipesButton
+        android:id="@+id/search_receipes_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:text="@string/search_receipes"
+        android:visibility="invisible"/>
+
+</LinearLayout>

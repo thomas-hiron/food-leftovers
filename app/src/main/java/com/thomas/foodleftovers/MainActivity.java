@@ -5,44 +5,27 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
-import com.google.zxing.ResultPoint;
-import com.journeyapps.barcodescanner.BarcodeCallback;
-import com.journeyapps.barcodescanner.BarcodeResult;
-import com.journeyapps.barcodescanner.DecoratedBarcodeView;
-import com.thomas.foodleftovers.ui.IngredientsListView;
+import com.thomas.foodleftovers.fragments.ListFragment;
+import com.thomas.foodleftovers.view_pager.ViewPagerAdapter;
 
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements ViewTreeObserver.OnGlobalLayoutListener
+public class MainActivity extends FragmentActivity implements ViewTreeObserver.OnGlobalLayoutListener
 {
     public static final String APP_TAG = "FOOD";
     private static final int CAMERA = 1;
 
     private boolean mKeyboardOpened;
-    private DecoratedBarcodeView barcodeView;
 
-    private BarcodeCallback callback = new BarcodeCallback()
-    {
-        @Override
-        public void barcodeResult(BarcodeResult result)
-        {
-            /* Ajout dans l'adapter */
-            IngredientsListView list = findViewById(R.id.ingredients_list);
-            list.addIngredientFromBarcode(Long.parseLong(result.getText()));
-        }
-
-        @Override
-        public void possibleResultPoints(List<ResultPoint> resultPoints)
-        {
-        }
-    };
+    private ListFragment mListFragment;
+    private ViewPager mViewPager;
+    private ViewPagerAdapter mViewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,12 +33,15 @@ public class MainActivity extends AppCompatActivity implements ViewTreeObserver.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* Démarrage du scan */
-        barcodeView = findViewById(R.id.barcode);
-        barcodeView.decodeContinuous(callback);
+        /* Création du pager */
+        mViewPager = findViewById(R.id.view_pager);
+        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mViewPagerAdapter);
 
-        /* Suppression du texte en dessous */
-        barcodeView.getStatusView().setVisibility(View.GONE);
+        /* Ajout du fragment de base */
+        mListFragment = new ListFragment();
+        mViewPagerAdapter.add(mListFragment);
+        mViewPagerAdapter.notifyDataSetChanged();
 
         /* Demande de permission */
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
@@ -78,11 +64,12 @@ public class MainActivity extends AppCompatActivity implements ViewTreeObserver.
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED)
                 {
                     Toast.makeText(this, "Cannot run application because camera service permission have not been granted", Toast.LENGTH_SHORT).show();
-                    barcodeView.pause();
+                    mListFragment.onPause();
+                    mListFragment.setBarcodeVisibility(View.GONE);
                 }
                 else
                 {
-                    barcodeView.resume();
+                    mListFragment.onResume();
                 }
 
                 break;
@@ -94,30 +81,15 @@ public class MainActivity extends AppCompatActivity implements ViewTreeObserver.
     }
 
     @Override
-    protected void onResume()
-    {
-        super.onResume();
-        barcodeView.resume();
-    }
-
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-        barcodeView.pause();
-    }
-
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
-        return barcodeView.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
+        return mListFragment.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
     }
 
     @Override
     public void onGlobalLayout()
     {
         final View activityRootView = getWindow().getDecorView().findViewById(android.R.id.content);
-        DecoratedBarcodeView barcodeView = findViewById(R.id.barcode);
         int heightDiff = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
         /* 99% of the time the height diff will be due to a keyboard. */
         if (heightDiff > 100)
@@ -125,16 +97,16 @@ public class MainActivity extends AppCompatActivity implements ViewTreeObserver.
             if (!mKeyboardOpened)
             {
                 /* Suppression du scanner */
-                barcodeView.pause();
-                barcodeView.setVisibility(View.GONE);
+                mListFragment.onPause();
+                mListFragment.setBarcodeVisibility(View.GONE);
             }
             mKeyboardOpened = true;
         }
         else if (mKeyboardOpened)
         {
             /* Ajout du scanner */
-            barcodeView.resume();
-            barcodeView.setVisibility(View.VISIBLE);
+            mListFragment.onResume();
+            mListFragment.setBarcodeVisibility(View.VISIBLE);
             mKeyboardOpened = false;
         }
     }
