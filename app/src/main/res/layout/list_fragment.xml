@@ -50,7 +50,7 @@
 
     </LinearLayout>
 
-    <com.thomas.foodleftovers.ui.SearchReceipesButton
+    <Button
         android:id="@+id/search_receipes_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

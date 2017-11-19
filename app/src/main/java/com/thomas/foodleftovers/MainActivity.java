@@ -14,9 +14,10 @@ import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.thomas.foodleftovers.fragments.ListFragment;
+import com.thomas.foodleftovers.interfaces.listeners.OnSearch;
 import com.thomas.foodleftovers.view_pager.ViewPagerAdapter;
 
-public class MainActivity extends FragmentActivity implements ViewTreeObserver.OnGlobalLayoutListener
+public class MainActivity extends FragmentActivity implements ViewTreeObserver.OnGlobalLayoutListener, OnSearch
 {
     public static final String APP_TAG = "FOOD";
     private static final int CAMERA = 1;
@@ -109,5 +110,11 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
             mListFragment.setBarcodeVisibility(View.VISIBLE);
             mKeyboardOpened = false;
         }
+    }
+
+    @Override
+    public void onSearch()
+    {
+        Log.i(APP_TAG, "Search loading");
     }
 }
