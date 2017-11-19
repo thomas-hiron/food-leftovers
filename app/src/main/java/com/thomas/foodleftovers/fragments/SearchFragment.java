@@ -7,6 +7,8 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thomas.foodleftovers.R;
@@ -22,14 +24,23 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     private ArrayList<String> mReceipes;
     private ReceipesListView mReceipesListView;
     private ReceipesAdapter mAdapter;
+    private TextView mSearchTitle;
+    private TextView mSearchResults;
+    private ProgressBar mSearchProgress;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.search_fragment, container, false);
 
+        /* List view et adapter */
         mReceipesListView = view.findViewById(R.id.results_list);
         mAdapter = (ReceipesAdapter) mReceipesListView.getAdapter();
+
+        /* UI */
+        mSearchTitle = view.findViewById(R.id.search_title);
+        mSearchResults = view.findViewById(R.id.search_results);
+        mSearchProgress = view.findViewById(R.id.search_progress);
 
         return view;
     }
@@ -39,6 +50,12 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
      */
     public void search()
     {
+        /* Affichage du chargement */
+        mSearchTitle.setVisibility(View.VISIBLE);
+        mSearchResults.setVisibility(View.GONE);
+        mSearchProgress.setVisibility(View.VISIBLE);
+
+        /* Chargement */
         getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
@@ -81,6 +98,15 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 
             /* Notif */
             mAdapter.notifyDataSetChanged();
+
+            /* Cache du chargement */
+            mSearchResults.setVisibility(View.VISIBLE);
+            mSearchTitle.setVisibility(View.GONE);
+            mSearchProgress.setVisibility(View.GONE);
+
+            /* Nombre de résultats */
+            String resultsText = getResources().getQuantityString(R.plurals.results_number, mReceipes.size(), mReceipes.size());
+            mSearchResults.setText(resultsText);
         }
         /* Sinon affichage des erreurs, et on retourne en arrière */
         else if (mReceipes == null)

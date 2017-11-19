@@ -9,4 +9,8 @@
     <string name="search_receipes">Chercher des recettes</string>
     <string name="search_error">Une erreur s\'est produite lors de la recherche</string>
     <string name="loading_results">Recherche en cours</string>
+    <plurals name="results_number">
+        <item quantity="one">%d résultat</item>
+        <item quantity="other">%d résultats</item>
+    </plurals>
 </resources>

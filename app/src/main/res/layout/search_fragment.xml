@@ -9,6 +9,7 @@
     tools:context="com.thomas.foodleftovers.MainActivity">
 
     <TextView
+        android:id="@+id/search_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -16,7 +17,16 @@
         android:text="@string/loading_results"
         android:textSize="20sp"/>
 
+    <TextView
+        android:id="@+id/search_results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textSize="20sp"/>
+
     <ProgressBar
+        android:id="@+id/search_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
