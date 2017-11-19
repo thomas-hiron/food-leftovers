@@ -13,11 +13,11 @@ import com.thomas.foodleftovers.R;
 /**
  * L'adapter de la liste des ingrédients
  */
-public class ResultsAdapter extends ArrayAdapter<String>
+public class ReceipesAdapter extends ArrayAdapter<String>
 {
     private LayoutInflater mInflater;
 
-    public ResultsAdapter(Context context)
+    public ReceipesAdapter(Context context)
     {
         super(context, R.layout.receipe);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
