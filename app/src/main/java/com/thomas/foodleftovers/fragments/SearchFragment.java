@@ -57,7 +57,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoadFinished(Loader<ArrayList<String>> loader, ArrayList<String> receipes)
     {
-        if (receipes == null && mReceipes == null)
+        if (receipes != null && mReceipes == null)
         {
             mReceipes = receipes;
 
