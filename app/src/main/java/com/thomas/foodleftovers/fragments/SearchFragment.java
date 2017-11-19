@@ -79,8 +79,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     public Loader<ArrayList<String>> onCreateLoader(int id, Bundle args)
     {
         LoadReceipes loadReceipes = null;
-        if (mReceipes == null && mIngredients != null)
-        {
+        if (mReceipes == null && mIngredients != null) {
             loadReceipes = new LoadReceipes(getContext(), mIngredients);
         }
 
@@ -90,17 +89,18 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoadFinished(Loader<ArrayList<String>> loader, ArrayList<String> receipes)
     {
-        if (receipes != null && mReceipes == null)
-        {
+        if (receipes != null && mReceipes == null) {
             mReceipes = receipes;
 
             /* Prevent NullPointerException */
-            if (mAdapter == null)
+            if (mAdapter == null) {
                 mAdapter = (ReceipesAdapter) mReceipesListView.getAdapter();
+            }
 
             /* Ajout des résultats dans l'adapter */
-            for (String s : receipes)
+            for (String s : receipes) {
                 mAdapter.add(s);
+            }
 
             /* Notif */
             mAdapter.notifyDataSetChanged();
@@ -115,8 +115,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
             mSearchResults.setText(resultsText);
         }
         /* Sinon affichage des erreurs, et on retourne en arrière */
-        else if (mReceipes == null)
-        {
+        else if (mReceipes == null) {
             Toast.makeText(getActivity(), getResources().getString(R.string.search_error), Toast.LENGTH_LONG).show();
             getActivity().onBackPressed();
         }

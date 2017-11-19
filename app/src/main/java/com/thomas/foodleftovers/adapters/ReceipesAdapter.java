@@ -30,16 +30,19 @@ public class ReceipesAdapter extends ArrayAdapter<String>
         View view;
 
         /* Création de la vue */
-        if (convertView == null)
+        if (convertView == null) {
             view = mInflater.inflate(R.layout.receipe, parent, false);
+        }
         /* On garde la vue transmise */
-        else
+        else {
             view = convertView;
+        }
 
         /* Ajout du nom de l'ingrédient */
         String result = getItem(position);
-        if (result != null)
+        if (result != null) {
             ((TextView) view.findViewById(R.id.ingredient_text)).setText(result);
+        }
 
         /* Retour de la vue */
         return view;

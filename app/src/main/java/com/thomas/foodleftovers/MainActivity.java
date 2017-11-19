@@ -46,8 +46,7 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
         mViewPagerAdapter.notifyDataSetChanged();
 
         /* Demande de permission */
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             Log.i("FOOD", "pas de permission");
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA);
         }
@@ -60,17 +59,14 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
-        switch (requestCode)
-        {
+        switch (requestCode) {
             case CAMERA:
-                if (grantResults[0] != PackageManager.PERMISSION_GRANTED)
-                {
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "Cannot run application because camera service permission have not been granted", Toast.LENGTH_SHORT).show();
                     mListFragment.onPause();
                     mListFragment.setBarcodeVisibility(View.GONE);
                 }
-                else
-                {
+                else {
                     mListFragment.onResume();
                 }
 
@@ -94,20 +90,17 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
         int currentItem = mViewPager.getCurrentItem();
 
         /* Pas première page, retour */
-        if (currentItem != 0)
-        {
+        if (currentItem != 0) {
             /* Scroll à la dernière page */
             mViewPager.setCurrentItem(currentItem - 1, true);
 
             /* Redémarrage barcode scanner sur la première page */
-            if(mViewPager.getCurrentItem() == 0)
-            {
+            if (mViewPager.getCurrentItem() == 0) {
                 mListFragment.onResume();
             }
         }
         /* Sinon fermeture */
-        else
-        {
+        else {
             super.onBackPressed();
         }
     }
@@ -118,18 +111,15 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
         final View activityRootView = getWindow().getDecorView().findViewById(android.R.id.content);
         int heightDiff = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
         /* 99% of the time the height diff will be due to a keyboard. */
-        if (heightDiff > 100)
-        {
-            if (!mKeyboardOpened)
-            {
+        if (heightDiff > 100) {
+            if (!mKeyboardOpened) {
                 /* Suppression du scanner */
                 mListFragment.onPause();
                 mListFragment.setBarcodeVisibility(View.GONE);
             }
             mKeyboardOpened = true;
         }
-        else if (mKeyboardOpened)
-        {
+        else if (mKeyboardOpened) {
             /* Ajout du scanner */
             mListFragment.onResume();
             mListFragment.setBarcodeVisibility(View.VISIBLE);
@@ -145,8 +135,7 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
 
         /* Ajout de la recherche */
         SearchFragment searchFragment;
-        if (searchFragmentIndex == -1)
-        {
+        if (searchFragmentIndex == -1) {
             searchFragment = new SearchFragment();
             mViewPagerAdapter.add(searchFragment);
             mViewPagerAdapter.notifyDataSetChanged();
@@ -154,8 +143,7 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
             /* Scroll à la dernière page */
             mViewPager.setCurrentItem(mViewPagerAdapter.getCount() - 1);
         }
-        else
-        {
+        else {
             searchFragment = (SearchFragment) mViewPagerAdapter.getItem(searchFragmentIndex);
 
             /* Scroll à la bonne page et reset des données */

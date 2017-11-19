@@ -63,11 +63,9 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
     public void addIngredientFromInput(String ingredientName)
     {
         ingredientName = ingredientName.trim();
-        if (!ingredientName.equals(""))
-        {
+        if (!ingredientName.equals("")) {
             /* Pas présent */
-            if (!mAdapter.containsName(ingredientName))
-            {
+            if (!mAdapter.containsName(ingredientName)) {
                 /* Instanciation de l'ingrédient */
                 Ingredient ingredient = new Ingredient();
                 ingredient.setName(ingredientName);
@@ -77,8 +75,9 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
                 mAdapter.notifyDataSetChanged();
             }
             /* Affichage toast */
-            else
+            else {
                 toastExistingIngredient();
+            }
         }
     }
 
@@ -89,8 +88,7 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
      */
     public void addIngredientFromBarcode(long barcode)
     {
-        if (!mAdapter.containsBarcode(barcode))
-        {
+        if (!mAdapter.containsBarcode(barcode)) {
             /* Instanciation de l'ingrédient */
             Ingredient ingredient = new Ingredient();
             ingredient.setName(getResources().getString(R.string.adding_ingredient));
@@ -113,8 +111,7 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
      */
     private void loadIngredient(Ingredient ingredient, long barcode, int apiCode)
     {
-        switch (apiCode)
-        {
+        switch (apiCode) {
             case OUTPAN_API:
                 new LoadOutpanIngredient(this, ingredient).execute(barcode);
                 break;
@@ -134,25 +131,21 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
     @Override
     public void onIngredientRequestComplete(Ingredient ingredient)
     {
-        if (ingredient.getName() != null)
-        {
+        if (ingredient.getName() != null) {
             /* Pas présent dans la liste, ajout */
-            if (!mAdapter.containsName(ingredient.getName()))
-            {
+            if (!mAdapter.containsName(ingredient.getName())) {
                 /* Fetched */
                 ingredient.setFetch(true);
 
                 /* Update view */
                 mAdapter.notifyDataSetChanged();
             }
-            else
-            {
+            else {
                 toastExistingIngredient();
                 removeFromAdapter(ingredient);
             }
         }
-        else
-        {
+        else {
             toastIngredientNotFound();
             removeFromAdapter(ingredient);
         }

@@ -12,12 +12,10 @@ public class OpenProductDataParser
     public static String PARSE_NAME(String string)
     {
         String result = null;
-        try
-        {
+        try {
             /* Parse complet */
             JSONObject jsonObject = new JSONObject(string);
-            if(jsonObject.getInt("nhits") > 0)
-            {
+            if (jsonObject.getInt("nhits") > 0) {
                 JSONArray recordsArray = new JSONArray(jsonObject.getString("records"));
                 JSONObject record = (JSONObject) recordsArray.get(0);
 
@@ -25,8 +23,7 @@ public class OpenProductDataParser
                 result = fields.getString("gtin_nm");
             }
         }
-        catch (JSONException e)
-        {
+        catch (JSONException e) {
             e.printStackTrace();
         }
 

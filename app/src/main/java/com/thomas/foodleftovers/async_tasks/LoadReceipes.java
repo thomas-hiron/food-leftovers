@@ -24,18 +24,19 @@ public class LoadReceipes extends AsyncTaskLoader<ArrayList<String>>
     @Override
     protected void onStartLoading()
     {
-        if (mReceipes != null)
+        if (mReceipes != null) {
             deliverResult(mReceipes);
-        else
+        }
+        else {
             forceLoad();
+        }
     }
 
     @Override
     public ArrayList<String> loadInBackground()
     {
         mReceipes = new ArrayList<>();
-        for (Ingredient ingredient : mIngredients)
-        {
+        for (Ingredient ingredient : mIngredients) {
             mReceipes.add(ingredient.getName());
         }
 

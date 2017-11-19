@@ -11,12 +11,10 @@ public class OpenFoodFactsParser
     public static String PARSE_NAME(String string)
     {
         String result = null;
-        try
-        {
+        try {
             /* Parse complet */
             JSONObject jsonObject = new JSONObject(string);
-            if (jsonObject.getInt("status") == 1)
-            {
+            if (jsonObject.getInt("status") == 1) {
                 String product = jsonObject.getString("product");
 
                 /* Parse du produit */
@@ -24,8 +22,7 @@ public class OpenFoodFactsParser
                 result = productJsonObject.getString("product_name_fr").replace("\\", "");
             }
         }
-        catch (JSONException e)
-        {
+        catch (JSONException e) {
             e.printStackTrace();
         }
 

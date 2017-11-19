@@ -11,13 +11,11 @@ public class OutpanParser
     public static String PARSE_NAME(String string)
     {
         String result = null;
-        try
-        {
+        try {
             JSONObject jsonObject = new JSONObject(string);
             result = jsonObject.getString("name");
         }
-        catch (JSONException e)
-        {
+        catch (JSONException e) {
             e.printStackTrace();
         }
 

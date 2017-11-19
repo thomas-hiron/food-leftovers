@@ -35,10 +35,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter
 
     public int indexOfFragment(String fragmentClass)
     {
-        for(Fragment fragment : mList)
-        {
-            if(fragmentClass.equalsIgnoreCase(fragment.getClass().getName()))
-            {
+        for (Fragment fragment : mList) {
+            if (fragmentClass.equalsIgnoreCase(fragment.getClass().getName())) {
                 return mList.indexOf(fragment);
             }
         }

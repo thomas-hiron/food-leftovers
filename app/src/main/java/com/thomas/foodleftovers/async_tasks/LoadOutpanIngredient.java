@@ -41,30 +41,28 @@ public class LoadOutpanIngredient extends AsyncTask<Long, Integer, String>
     {
         HttpsURLConnection urlConnection = null;
         StringBuilder result = new StringBuilder();
-        try
-        {
+        try {
             URL url = new URL(String.format(URL, longs[0], API_KEY));
             urlConnection = (HttpsURLConnection) url.openConnection();
 
-            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK)
-            {
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
                 String line;
-                while ((line = reader.readLine()) != null)
+                while ((line = reader.readLine()) != null) {
                     result.append(line);
+                }
             }
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             e.printStackTrace();
             Log.e(MainActivity.APP_TAG, "Une erreur s'est produite lors de la requête à Outpan");
         }
-        finally
-        {
-            if (urlConnection != null)
+        finally {
+            if (urlConnection != null) {
                 urlConnection.disconnect();
+            }
         }
 
         return result.toString();
@@ -79,8 +77,9 @@ public class LoadOutpanIngredient extends AsyncTask<Long, Integer, String>
         String ingredientName = OutpanParser.PARSE_NAME(s);
 
         /* Clean name */
-        if (ingredientName.equals("null"))
+        if (ingredientName.equals("null")) {
             ingredientName = null;
+        }
 
         /* Ajout du nom */
         mIngredient.setName(ingredientName);

@@ -34,12 +34,10 @@ public class ListFragment extends Fragment implements View.OnClickListener
     {
         super.onAttach(context);
 
-        try
-        {
+        try {
             mListener = (OnSearch) context;
         }
-        catch (ClassCastException e)
-        {
+        catch (ClassCastException e) {
             throw new ClassCastException(MainActivity.class + "must implement" + OnSearch.class.getSimpleName());
         }
     }
@@ -119,16 +117,13 @@ public class ListFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view)
     {
-        if (view.getId() == R.id.search_receipes_button)
-        {
+        if (view.getId() == R.id.search_receipes_button) {
             /* Lancement de la recherche */
-            if (mListener != null)
-            {
+            if (mListener != null) {
                 mListener.onSearch();
             }
             /* mListener pas instancié */
-            else
-            {
+            else {
                 Toast.makeText(view.getContext(), view.getResources().getString(R.string.search_error), Toast.LENGTH_SHORT).show();
             }
         }
@@ -142,8 +137,7 @@ public class ListFragment extends Fragment implements View.OnClickListener
         IngredientsAdapter ingredientsAdapter = (IngredientsAdapter) mList.getAdapter();
         ArrayList<Ingredient> ingredients = new ArrayList<>();
 
-        for (int i = 0, l = ingredientsAdapter.getCount(); i < l; ++i)
-        {
+        for (int i = 0, l = ingredientsAdapter.getCount(); i < l; ++i) {
             ingredients.add(ingredientsAdapter.getItem(i));
         }
 

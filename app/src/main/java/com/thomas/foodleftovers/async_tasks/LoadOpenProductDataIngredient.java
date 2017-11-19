@@ -44,30 +44,28 @@ public class LoadOpenProductDataIngredient extends AsyncTask<Long, Integer, Stri
     {
         HttpsURLConnection urlConnection = null;
         StringBuilder result = new StringBuilder();
-        try
-        {
+        try {
             java.net.URL url = new URL(String.format(URL, GTIN_PRODUCT, longs[0]));
             urlConnection = (HttpsURLConnection) url.openConnection();
 
-            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK)
-            {
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
                 String line;
-                while ((line = reader.readLine()) != null)
+                while ((line = reader.readLine()) != null) {
                     result.append(line);
+                }
             }
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             e.printStackTrace();
             Log.e(MainActivity.APP_TAG, "Une erreur s'est produite lors de la requête à Open Food Facts");
         }
-        finally
-        {
-            if (urlConnection != null)
+        finally {
+            if (urlConnection != null) {
                 urlConnection.disconnect();
+            }
         }
 
         return result.toString();

@@ -36,16 +36,19 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
         View view;
 
         /* Création de la vue */
-        if (convertView == null)
+        if (convertView == null) {
             view = mInflater.inflate(R.layout.ingredient, parent, false);
+        }
         /* On garde la vue transmise */
-        else
+        else {
             view = convertView;
+        }
 
         /* Ajout du nom de l'ingrédient */
         Ingredient ingredient = getItem(position);
-        if (ingredient != null)
+        if (ingredient != null) {
             ((TextView) view.findViewById(R.id.ingredient_text)).setText(ingredient.getName());
+        }
 
         /* Ajout du listener */
         view.findViewById(R.id.delete_ingredient).setOnClickListener(this);
@@ -66,8 +69,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
     @Override
     public void onClick(View view)
     {
-        if (view.getId() == R.id.delete_ingredient)
-        {
+        if (view.getId() == R.id.delete_ingredient) {
             /* Récupération de la position */
             View parentRow = (View) view.getParent();
             IngredientsListView listView = (IngredientsListView) parentRow.getParent();
@@ -84,11 +86,11 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
      */
     private boolean hasFetched()
     {
-        for (int i = 0, l = getCount(); i < l; ++i)
-        {
+        for (int i = 0, l = getCount(); i < l; ++i) {
             Ingredient ingredient = getItem(i);
-            if (ingredient != null && ingredient.isFetch())
+            if (ingredient != null && ingredient.isFetch()) {
                 return true;
+            }
         }
 
         return false;
@@ -102,11 +104,11 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
      */
     public boolean containsName(String ingredientName)
     {
-        for (int i = 0, l = getCount(); i < l; ++i)
-        {
+        for (int i = 0, l = getCount(); i < l; ++i) {
             Ingredient ingredient = getItem(i);
-            if (ingredient != null && ingredient.isFetch() && ingredient.getName() != null && ingredient.getName().equalsIgnoreCase(ingredientName))
+            if (ingredient != null && ingredient.isFetch() && ingredient.getName() != null && ingredient.getName().equalsIgnoreCase(ingredientName)) {
                 return true;
+            }
         }
 
         return false;
@@ -120,11 +122,11 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
      */
     public boolean containsBarcode(long barcode)
     {
-        for (int i = 0, l = getCount(); i < l; ++i)
-        {
+        for (int i = 0, l = getCount(); i < l; ++i) {
             Ingredient ingredient = getItem(i);
-            if (ingredient != null && ingredient.getBarcode() != 0 && ingredient.getBarcode() == barcode)
+            if (ingredient != null && ingredient.getBarcode() != 0 && ingredient.getBarcode() == barcode) {
                 return true;
+            }
         }
 
         return false;

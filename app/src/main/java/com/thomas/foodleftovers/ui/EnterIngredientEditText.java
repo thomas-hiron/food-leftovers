@@ -41,8 +41,7 @@ public class EnterIngredientEditText extends AppCompatEditText implements TextVi
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent)
     {
         /* Appuie sur entrée, ajoute le texte */
-        if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)
-        {
+        if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
             View parent = (View) getParent();
             ValidateIngredientButton validateButton = parent.findViewById(R.id.validate_ingredient_button);
 
