@@ -32,4 +32,14 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
     {
         return mList.size();
     }
+
+    /**
+     * Supprime le dernier fragment
+     */
+    public void removeLast()
+    {
+        /* On supprime le dernier s'il y a plus d'un élément */
+        if(mList.size() > 1)
+            mList.remove(getCount() - 1);
+    }
 }

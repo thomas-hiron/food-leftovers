@@ -89,6 +89,25 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
     }
 
     @Override
+    public void onBackPressed()
+    {
+        /* Plus d'une page, suppression de la page */
+        if (mViewPagerAdapter.getCount() > 1)
+        {
+            mViewPagerAdapter.removeLast();
+            mViewPagerAdapter.notifyDataSetChanged();
+
+            /* Scroll à la dernière page */
+            mViewPager.setCurrentItem(mViewPagerAdapter.getCount() - 1);
+        }
+        /* Sinon fermeture */
+        else
+        {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public void onGlobalLayout()
     {
         final View activityRootView = getWindow().getDecorView().findViewById(android.R.id.content);
