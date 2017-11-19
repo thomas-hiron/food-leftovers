@@ -91,14 +91,13 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
     @Override
     public void onBackPressed()
     {
-        /* Plus d'une page, suppression de la page */
-        if (mViewPagerAdapter.getCount() > 1)
-        {
-            mViewPagerAdapter.removeLast();
-            mViewPagerAdapter.notifyDataSetChanged();
+        int currentItem = mViewPager.getCurrentItem();
 
+        /* Pas première page, retour */
+        if (currentItem != 0)
+        {
             /* Scroll à la dernière page */
-            mViewPager.setCurrentItem(mViewPagerAdapter.getCount() - 1);
+            mViewPager.setCurrentItem(currentItem - 1, true);
         }
         /* Sinon fermeture */
         else
@@ -135,13 +134,28 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
     @Override
     public void onSearch()
     {
-        /* Ajout de la recherche */
-        SearchFragment searchFragment = new SearchFragment();
-        mViewPagerAdapter.add(searchFragment);
-        mViewPagerAdapter.notifyDataSetChanged();
+        /* Récupération fragment de recherche */
+        int searchFragmentIndex = mViewPagerAdapter.indexOfFragment(SearchFragment.class.getName());
 
-        /* Scroll à la dernière page */
-        mViewPager.setCurrentItem(mViewPagerAdapter.getCount() - 1);
+        /* Ajout de la recherche */
+        SearchFragment searchFragment;
+        if (searchFragmentIndex == -1)
+        {
+            searchFragment = new SearchFragment();
+            mViewPagerAdapter.add(searchFragment);
+            mViewPagerAdapter.notifyDataSetChanged();
+
+            /* Scroll à la dernière page */
+            mViewPager.setCurrentItem(mViewPagerAdapter.getCount() - 1);
+        }
+        else
+        {
+            searchFragment = (SearchFragment) mViewPagerAdapter.getItem(searchFragmentIndex);
+
+            /* Scroll à la bonne page et reset des données */
+            searchFragment.reset();
+            mViewPager.setCurrentItem(searchFragmentIndex);
+        }
 
         /* Lancement de la recherche */
         searchFragment.search();

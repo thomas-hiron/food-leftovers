@@ -42,6 +42,16 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
+    /**
+     * Réinitialise le fragment
+     */
+    public void reset()
+    {
+        mReceipes = null;
+        mAdapter.clear();
+        mAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public Loader<ArrayList<String>> onCreateLoader(int id, Bundle args)
     {
@@ -73,7 +83,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
             mAdapter.notifyDataSetChanged();
         }
         /* Sinon affichage des erreurs, et on retourne en arrière */
-        else if(mReceipes == null)
+        else if (mReceipes == null)
         {
             Toast.makeText(getActivity(), getResources().getString(R.string.search_error), Toast.LENGTH_LONG).show();
             getActivity().onBackPressed();

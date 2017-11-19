@@ -2,11 +2,11 @@ package com.thomas.foodleftovers.view_pager;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter
+public class ViewPagerAdapter extends FragmentPagerAdapter
 {
     private ArrayList<Fragment> mList = null;
 
@@ -33,13 +33,16 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
         return mList.size();
     }
 
-    /**
-     * Supprime le dernier fragment
-     */
-    public void removeLast()
+    public int indexOfFragment(String fragmentClass)
     {
-        /* On supprime le dernier s'il y a plus d'un élément */
-        if(mList.size() > 1)
-            mList.remove(getCount() - 1);
+        for(Fragment fragment : mList)
+        {
+            if(fragmentClass.equalsIgnoreCase(fragment.getClass().getName()))
+            {
+                return mList.indexOf(fragment);
+            }
+        }
+
+        return -1;
     }
 }
