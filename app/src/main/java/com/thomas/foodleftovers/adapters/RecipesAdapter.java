@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,19 +49,24 @@ public class RecipesAdapter extends ArrayAdapter<Recipe>
         /* Ajout du nom de l'ingrédient */
         Recipe recipe = getItem(position);
         if (recipe != null) {
-            /* Titre */
-            ((TextView) view.findViewById(R.id.recipe_title)).setText(recipe.getTitle());
 
-            /* Description */
-            ((TextView) view.findViewById(R.id.recipe_duration)).setText(String.valueOf(recipe.getDuration()));
+            /* Activation du lien sur le titre */
+            TextView title = view.findViewById(R.id.recipe_title);
+            title.setMovementMethod(LinkMovementMethod.getInstance());
 
-            /* Durée */
+            /* Titre et description */
+            String link = "<a href='" + recipe.getLink() + "'>" + recipe.getTitle() + "</a>";
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 ((TextView) view.findViewById(R.id.recipe_description)).setText(Html.fromHtml(recipe.getDescription(), Html.FROM_HTML_MODE_COMPACT));
+                title.setText(Html.fromHtml(link, Html.FROM_HTML_MODE_COMPACT));
             }
             else {
                 ((TextView) view.findViewById(R.id.recipe_description)).setText(Html.fromHtml(recipe.getDescription()));
+                title.setText(Html.fromHtml(link));
             }
+
+            /* Durée */
+            ((TextView) view.findViewById(R.id.recipe_duration)).setText(String.valueOf(recipe.getDuration()));
 
             /* Image */
             ImageView imageView = view.findViewById(R.id.recipe_picture);

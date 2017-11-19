@@ -16,6 +16,8 @@ import java.util.ArrayList;
  */
 public class MarmitonParser
 {
+    private static final String URL = "http://www.marmiton.org";
+
     public static ArrayList<Recipe> PARSE_HTML(Document doc)
     {
         ArrayList<Recipe> recipes = new ArrayList<>();
@@ -35,6 +37,9 @@ public class MarmitonParser
 
                 /* Durée */
                 recipe.setDuration(recipeElem.selectFirst(".recipe-card__duration__value").html());
+
+                /* Lien */
+                recipe.setLink(URL + recipeElem.attr("href"));
 
                 recipes.add(recipe);
             }

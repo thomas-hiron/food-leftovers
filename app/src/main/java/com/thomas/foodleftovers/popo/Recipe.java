@@ -9,6 +9,7 @@ public class Recipe
     private String description;
     private String pictureUrl;
     private String duration;
+    private String link;
 
     public String getTitle()
     {
@@ -48,5 +49,15 @@ public class Recipe
     public void setDuration(String duration)
     {
         this.duration = duration;
+    }
+
+    public String getLink()
+    {
+        return link;
+    }
+
+    public void setLink(String link)
+    {
+        this.link = link;
     }
 }
