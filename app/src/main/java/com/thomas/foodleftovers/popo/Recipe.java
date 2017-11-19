@@ -8,7 +8,7 @@ public class Recipe
     private String title;
     private String description;
     private String pictureUrl;
-    private int duration;
+    private String duration;
 
     public String getTitle()
     {
@@ -40,12 +40,12 @@ public class Recipe
         this.pictureUrl = pictureUrl;
     }
 
-    public int getDuration()
+    public String getDuration()
     {
         return duration;
     }
 
-    public void setDuration(int duration)
+    public void setDuration(String duration)
     {
         this.duration = duration;
     }

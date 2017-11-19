@@ -34,8 +34,7 @@ public class MarmitonParser
                 recipe.setPictureUrl(recipeElem.selectFirst(".recipe-card__picture img").attr("src"));
 
                 /* Durée */
-                String duration = recipeElem.selectFirst(".recipe-card__duration__value").html();
-                recipe.setDuration(Integer.parseInt(duration.replaceAll("\\D", "")));
+                recipe.setDuration(recipeElem.selectFirst(".recipe-card__duration__value").html());
 
                 recipes.add(recipe);
             }

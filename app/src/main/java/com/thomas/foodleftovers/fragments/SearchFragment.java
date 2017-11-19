@@ -100,7 +100,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 
             /* Ajout des résultats dans l'adapter */
             for (Recipe recipe : recipes) {
-                mAdapter.add(recipe.getTitle());
+                mAdapter.add(recipe);
             }
 
             /* Notif */
