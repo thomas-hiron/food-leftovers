@@ -19,7 +19,7 @@ public class ResultsAdapter extends ArrayAdapter<String>
 
     public ResultsAdapter(Context context)
     {
-        super(context, R.layout.results_list);
+        super(context, R.layout.receipe);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -31,7 +31,7 @@ public class ResultsAdapter extends ArrayAdapter<String>
 
         /* Création de la vue */
         if (convertView == null)
-            view = mInflater.inflate(R.layout.results_list, parent, false);
+            view = mInflater.inflate(R.layout.receipe, parent, false);
         /* On garde la vue transmise */
         else
             view = convertView;

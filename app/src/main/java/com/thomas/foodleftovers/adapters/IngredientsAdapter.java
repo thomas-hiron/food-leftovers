@@ -23,7 +23,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
 
     public IngredientsAdapter(Context context, Button searchReceipesButton)
     {
-        super(context, R.layout.ingredients_list);
+        super(context, R.layout.ingredient);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         mSearchReceipesButton = searchReceipesButton;
@@ -37,7 +37,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
 
         /* Création de la vue */
         if (convertView == null)
-            view = mInflater.inflate(R.layout.ingredients_list, parent, false);
+            view = mInflater.inflate(R.layout.ingredient, parent, false);
         /* On garde la vue transmise */
         else
             view = convertView;
