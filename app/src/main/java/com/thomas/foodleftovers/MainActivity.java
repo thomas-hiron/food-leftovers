@@ -98,6 +98,12 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
         {
             /* Scroll à la dernière page */
             mViewPager.setCurrentItem(currentItem - 1, true);
+
+            /* Redémarrage barcode scanner sur la première page */
+            if(mViewPager.getCurrentItem() == 0)
+            {
+                mListFragment.onResume();
+            }
         }
         /* Sinon fermeture */
         else
@@ -159,5 +165,8 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
 
         /* Lancement de la recherche */
         searchFragment.search(mListFragment.getIngredients());
+
+        /* Pause */
+        mListFragment.onPause();
     }
 }
