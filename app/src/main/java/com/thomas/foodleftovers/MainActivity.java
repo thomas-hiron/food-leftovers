@@ -14,6 +14,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.thomas.foodleftovers.fragments.ListFragment;
+import com.thomas.foodleftovers.fragments.SearchFragment;
 import com.thomas.foodleftovers.interfaces.listeners.OnSearch;
 import com.thomas.foodleftovers.view_pager.ViewPagerAdapter;
 
@@ -115,6 +116,11 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
     @Override
     public void onSearch()
     {
-        Log.i(APP_TAG, "Search loading");
+        /* Ajout de la recherche */
+        mViewPagerAdapter.add(new SearchFragment());
+        mViewPagerAdapter.notifyDataSetChanged();
+
+        /* Scroll à la dernière page */
+        mViewPager.setCurrentItem(mViewPagerAdapter.getCount() - 1);
     }
 }
