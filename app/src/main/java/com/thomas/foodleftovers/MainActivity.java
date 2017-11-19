@@ -136,10 +136,14 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
     public void onSearch()
     {
         /* Ajout de la recherche */
-        mViewPagerAdapter.add(new SearchFragment());
+        SearchFragment searchFragment = new SearchFragment();
+        mViewPagerAdapter.add(searchFragment);
         mViewPagerAdapter.notifyDataSetChanged();
 
         /* Scroll à la dernière page */
         mViewPager.setCurrentItem(mViewPagerAdapter.getCount() - 1);
+
+        /* Lancement de la recherche */
+        searchFragment.search();
     }
 }
