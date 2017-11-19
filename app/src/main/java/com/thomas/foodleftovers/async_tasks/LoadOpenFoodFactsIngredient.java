@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.thomas.foodleftovers.MainActivity;
 import com.thomas.foodleftovers.interfaces.listeners.OnIngredientRequestComplete;
-import com.thomas.foodleftovers.json_parsers.OpenFoodFactsParser;
+import com.thomas.foodleftovers.parsers.json.OpenFoodFactsParser;
 import com.thomas.foodleftovers.popo.Ingredient;
 
 import java.io.BufferedInputStream;

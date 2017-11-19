@@ -1,4 +1,4 @@
-package com.thomas.foodleftovers.json_parsers;
+package com.thomas.foodleftovers.parsers.json;
 
 import org.json.JSONArray;
 import org.json.JSONException;
