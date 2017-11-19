@@ -15,15 +15,19 @@ import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.thomas.foodleftovers.MainActivity;
 import com.thomas.foodleftovers.R;
+import com.thomas.foodleftovers.adapters.IngredientsAdapter;
 import com.thomas.foodleftovers.interfaces.listeners.OnSearch;
+import com.thomas.foodleftovers.popo.Ingredient;
 import com.thomas.foodleftovers.ui.IngredientsListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListFragment extends Fragment implements View.OnClickListener
 {
     private DecoratedBarcodeView mBarcodeView;
     private OnSearch mListener;
+    private IngredientsListView mList;
 
     @Override
     public void onAttach(Context context)
@@ -56,6 +60,8 @@ public class ListFragment extends Fragment implements View.OnClickListener
         View searchButton = view.findViewById(R.id.search_receipes_button);
         searchButton.setOnClickListener(this);
 
+        mList = view.findViewById(R.id.ingredients_list);
+
         return view;
     }
 
@@ -65,8 +71,7 @@ public class ListFragment extends Fragment implements View.OnClickListener
         public void barcodeResult(BarcodeResult result)
         {
             /* Ajout dans l'adapter */
-            IngredientsListView list = getActivity().findViewById(R.id.ingredients_list);
-            list.addIngredientFromBarcode(Long.parseLong(result.getText()));
+            mList.addIngredientFromBarcode(Long.parseLong(result.getText()));
         }
 
         @Override
@@ -127,5 +132,21 @@ public class ListFragment extends Fragment implements View.OnClickListener
                 Toast.makeText(view.getContext(), view.getResources().getString(R.string.search_error), Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    /**
+     * @return La liste des ingrédients
+     */
+    public ArrayList<Ingredient> getIngredients()
+    {
+        IngredientsAdapter ingredientsAdapter = (IngredientsAdapter) mList.getAdapter();
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+        for (int i = 0, l = ingredientsAdapter.getCount(); i < l; ++i)
+        {
+            ingredients.add(ingredientsAdapter.getItem(i));
+        }
+
+        return ingredients;
     }
 }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.thomas.foodleftovers.R;
 import com.thomas.foodleftovers.adapters.ReceipesAdapter;
 import com.thomas.foodleftovers.async_tasks.LoadReceipes;
+import com.thomas.foodleftovers.popo.Ingredient;
 import com.thomas.foodleftovers.ui.ReceipesListView;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     private TextView mSearchTitle;
     private TextView mSearchResults;
     private ProgressBar mSearchProgress;
+    private ArrayList<Ingredient> mIngredients;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -47,9 +49,13 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
 
     /**
      * Lance la recherche
+     *
+     * @param ingredients Les ingrédients
      */
-    public void search()
+    public void search(ArrayList<Ingredient> ingredients)
     {
+        mIngredients = ingredients;
+
         /* Affichage du chargement */
         mSearchTitle.setVisibility(View.VISIBLE);
         mSearchResults.setVisibility(View.GONE);
@@ -73,9 +79,9 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     public Loader<ArrayList<String>> onCreateLoader(int id, Bundle args)
     {
         LoadReceipes loadReceipes = null;
-        if (mReceipes == null)
+        if (mReceipes == null && mIngredients != null)
         {
-            loadReceipes = new LoadReceipes(getContext());
+            loadReceipes = new LoadReceipes(getContext(), mIngredients);
         }
 
         return loadReceipes;

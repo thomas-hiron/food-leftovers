@@ -158,6 +158,6 @@ public class MainActivity extends FragmentActivity implements ViewTreeObserver.O
         }
 
         /* Lancement de la recherche */
-        searchFragment.search();
+        searchFragment.search(mListFragment.getIngredients());
     }
 }
