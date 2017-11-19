@@ -13,13 +13,13 @@ import com.thomas.foodleftovers.R;
 /**
  * L'adapter de la liste des ingrédients
  */
-public class ReceipesAdapter extends ArrayAdapter<String>
+public class RecipesAdapter extends ArrayAdapter<String>
 {
     private LayoutInflater mInflater;
 
-    public ReceipesAdapter(Context context)
+    public RecipesAdapter(Context context)
     {
-        super(context, R.layout.receipe);
+        super(context, R.layout.recipe);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -31,7 +31,7 @@ public class ReceipesAdapter extends ArrayAdapter<String>
 
         /* Création de la vue */
         if (convertView == null) {
-            view = mInflater.inflate(R.layout.receipe, parent, false);
+            view = mInflater.inflate(R.layout.recipe, parent, false);
         }
         /* On garde la vue transmise */
         else {

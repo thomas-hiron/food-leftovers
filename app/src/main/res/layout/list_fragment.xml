@@ -51,12 +51,12 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/search_receipes_button"
+        android:id="@+id/search_recipes_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
-        android:text="@string/search_receipes"
+        android:text="@string/search_recipes"
         android:visibility="invisible"/>
 
 </LinearLayout>

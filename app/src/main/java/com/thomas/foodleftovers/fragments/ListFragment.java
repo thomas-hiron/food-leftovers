@@ -55,7 +55,7 @@ public class ListFragment extends Fragment implements View.OnClickListener
         mBarcodeView.getStatusView().setVisibility(View.GONE);
 
         /* Listener sur la recherche */
-        View searchButton = view.findViewById(R.id.search_receipes_button);
+        View searchButton = view.findViewById(R.id.search_recipes_button);
         searchButton.setOnClickListener(this);
 
         mList = view.findViewById(R.id.ingredients_list);
@@ -117,7 +117,7 @@ public class ListFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view)
     {
-        if (view.getId() == R.id.search_receipes_button) {
+        if (view.getId() == R.id.search_recipes_button) {
             /* Lancement de la recherche */
             if (mListener != null) {
                 mListener.onSearch();

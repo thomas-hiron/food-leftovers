@@ -4,26 +4,26 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
-import com.thomas.foodleftovers.adapters.ReceipesAdapter;
+import com.thomas.foodleftovers.adapters.RecipesAdapter;
 
 /**
  * Gère la liste des résultats
  */
-public class ReceipesListView extends ListView
+public class RecipesListView extends ListView
 {
-    private ReceipesAdapter mAdapter;
+    private RecipesAdapter mAdapter;
 
-    public ReceipesListView(Context context)
+    public RecipesListView(Context context)
     {
         super(context);
     }
 
-    public ReceipesListView(Context context, AttributeSet attrs)
+    public RecipesListView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
     }
 
-    public ReceipesListView(Context context, AttributeSet attrs, int defStyleAttr)
+    public RecipesListView(Context context, AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
     }
@@ -34,7 +34,7 @@ public class ReceipesListView extends ListView
         super.onAttachedToWindow();
 
         /* Ajout de l'adapter */
-        mAdapter = new ReceipesAdapter(getContext());
+        mAdapter = new RecipesAdapter(getContext());
         setAdapter(mAdapter);
     }
 }

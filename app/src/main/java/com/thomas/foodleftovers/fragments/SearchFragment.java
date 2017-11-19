@@ -12,19 +12,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thomas.foodleftovers.R;
-import com.thomas.foodleftovers.adapters.ReceipesAdapter;
-import com.thomas.foodleftovers.async_tasks.LoadReceipes;
+import com.thomas.foodleftovers.adapters.RecipesAdapter;
+import com.thomas.foodleftovers.async_tasks.LoadRecipes;
 import com.thomas.foodleftovers.popo.Ingredient;
-import com.thomas.foodleftovers.ui.ReceipesListView;
+import com.thomas.foodleftovers.popo.Recipe;
+import com.thomas.foodleftovers.ui.RecipesListView;
 
 import java.util.ArrayList;
 
-public class SearchFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<String>>
+public class SearchFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Recipe>>
 {
     private static int LOADER_ID = 1;
-    private ArrayList<String> mReceipes;
-    private ReceipesListView mReceipesListView;
-    private ReceipesAdapter mAdapter;
+    private ArrayList<Recipe> mRecipes;
+    private RecipesListView mRecipesListView;
+    private RecipesAdapter mAdapter;
     private TextView mSearchTitle;
     private TextView mSearchResults;
     private ProgressBar mSearchProgress;
@@ -36,8 +37,8 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
         View view = inflater.inflate(R.layout.search_fragment, container, false);
 
         /* List view et adapter */
-        mReceipesListView = view.findViewById(R.id.results_list);
-        mAdapter = (ReceipesAdapter) mReceipesListView.getAdapter();
+        mRecipesListView = view.findViewById(R.id.results_list);
+        mAdapter = (RecipesAdapter) mRecipesListView.getAdapter();
 
         /* UI */
         mSearchTitle = view.findViewById(R.id.search_title);
@@ -70,36 +71,36 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
      */
     public void reset()
     {
-        mReceipes = null;
+        mRecipes = null;
         mAdapter.clear();
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public Loader<ArrayList<String>> onCreateLoader(int id, Bundle args)
+    public Loader<ArrayList<Recipe>> onCreateLoader(int id, Bundle args)
     {
-        LoadReceipes loadReceipes = null;
-        if (mReceipes == null && mIngredients != null) {
-            loadReceipes = new LoadReceipes(getContext(), mIngredients);
+        LoadRecipes loadRecipes = null;
+        if (mRecipes == null && mIngredients != null) {
+            loadRecipes = new LoadRecipes(getContext(), mIngredients);
         }
 
-        return loadReceipes;
+        return loadRecipes;
     }
 
     @Override
-    public void onLoadFinished(Loader<ArrayList<String>> loader, ArrayList<String> receipes)
+    public void onLoadFinished(Loader<ArrayList<Recipe>> loader, ArrayList<Recipe> recipes)
     {
-        if (receipes != null && mReceipes == null) {
-            mReceipes = receipes;
+        if (recipes != null && mRecipes == null) {
+            mRecipes = recipes;
 
             /* Prevent NullPointerException */
             if (mAdapter == null) {
-                mAdapter = (ReceipesAdapter) mReceipesListView.getAdapter();
+                mAdapter = (RecipesAdapter) mRecipesListView.getAdapter();
             }
 
             /* Ajout des résultats dans l'adapter */
-            for (String s : receipes) {
-                mAdapter.add(s);
+            for (Recipe recipe : recipes) {
+                mAdapter.add(recipe.getTitle());
             }
 
             /* Notif */
@@ -111,11 +112,11 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
             mSearchProgress.setVisibility(View.GONE);
 
             /* Nombre de résultats */
-            String resultsText = getResources().getQuantityString(R.plurals.results_number, mReceipes.size(), mReceipes.size());
+            String resultsText = getResources().getQuantityString(R.plurals.results_number, mRecipes.size(), mRecipes.size());
             mSearchResults.setText(resultsText);
         }
         /* Sinon affichage des erreurs, et on retourne en arrière */
-        else if (mReceipes == null) {
+        else if (mRecipes == null) {
             Toast.makeText(getActivity(), getResources().getString(R.string.search_error), Toast.LENGTH_LONG).show();
             getActivity().onBackPressed();
         }
@@ -125,7 +126,7 @@ public class SearchFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public void onLoaderReset(Loader<ArrayList<String>> loader)
+    public void onLoaderReset(Loader<ArrayList<Recipe>> loader)
     {
 
     }

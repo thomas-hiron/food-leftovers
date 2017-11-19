@@ -48,10 +48,10 @@ public class IngredientsListView extends ListView implements OnIngredientRequest
 
         /* Récupération du bouton de recherche */
         View parent = getRootView();
-        Button searchReceipesButton = parent.findViewById(R.id.search_receipes_button);
+        Button searchRecipesButton = parent.findViewById(R.id.search_recipes_button);
 
         /* Ajout de l'adapter */
-        mAdapter = new IngredientsAdapter(getContext(), searchReceipesButton);
+        mAdapter = new IngredientsAdapter(getContext(), searchRecipesButton);
         setAdapter(mAdapter);
     }
 

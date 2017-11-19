@@ -18,15 +18,15 @@ import com.thomas.foodleftovers.ui.IngredientsListView;
  */
 public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View.OnClickListener
 {
-    private Button mSearchReceipesButton;
+    private Button mSearchRecipesButton;
     private LayoutInflater mInflater;
 
-    public IngredientsAdapter(Context context, Button searchReceipesButton)
+    public IngredientsAdapter(Context context, Button searchRecipesButton)
     {
         super(context, R.layout.ingredient);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        mSearchReceipesButton = searchReceipesButton;
+        mSearchRecipesButton = searchRecipesButton;
     }
 
     @NonNull
@@ -63,7 +63,7 @@ public class IngredientsAdapter extends ArrayAdapter<Ingredient> implements View
         super.notifyDataSetChanged();
 
         /* Toggle button */
-        mSearchReceipesButton.setVisibility(hasFetched() ? View.VISIBLE : View.INVISIBLE);
+        mSearchRecipesButton.setVisibility(hasFetched() ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override

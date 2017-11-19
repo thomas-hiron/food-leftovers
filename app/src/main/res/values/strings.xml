@@ -6,7 +6,7 @@
     <string name="adding_ingredient">Ajout en cours…</string>
     <string name="ingredient_not_found">L\'ingrédient n\'a pas été trouvé, merci de le renseigner manuellement</string>
     <string name="existing_ingredient">L\'ingrédient est déjà présent dans la liste</string>
-    <string name="search_receipes">Chercher des recettes</string>
+    <string name="search_recipes">Chercher des recettes</string>
     <string name="search_error">Une erreur s\'est produite lors de la recherche</string>
     <string name="loading_results">Recherche en cours</string>
     <plurals name="results_number">
